@@ -1,9 +1,9 @@
-package com.cyber.domain.request;
+package com.cyber.authing.domain.request;
 
-import com.cyber.domain.entity.AuthingCallback;
-import com.cyber.domain.entity.AuthingRawToken;
-import com.cyber.entity.DataResponse;
-import com.cyber.exception.BusinessException;
+import com.cyber.authing.domain.entity.AuthingCallback;
+import com.cyber.authing.domain.entity.AuthingRawToken;
+import com.cyber.domain.entity.DataResponse;
+import com.cyber.domain.exception.BusinessException;
 
 public interface AuthingRequest {
 

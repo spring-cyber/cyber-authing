@@ -1,4 +1,4 @@
-package com.cyber.domain.entity;
+package com.cyber.authing.domain.entity;
 
 
 import java.io.Serializable;

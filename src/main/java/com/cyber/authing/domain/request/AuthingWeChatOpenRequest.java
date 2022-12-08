@@ -1,15 +1,14 @@
-package com.cyber.domain.request;
+package com.cyber.authing.domain.request;
 
 import com.alibaba.fastjson.JSONObject;
-import com.cyber.domain.entity.AuthingCallback;
-import com.cyber.domain.entity.AuthingRawToken;
-import com.cyber.infrastructure.config.AuthingConfig;
-import com.cyber.infrastructure.config.AuthingDefaultSource;
+import com.cyber.authing.domain.entity.AuthingCallback;
+import com.cyber.authing.domain.entity.AuthingRawToken;
+import com.cyber.authing.domain.entity.AuthingSetting;
 
 
 public class AuthingWeChatOpenRequest extends AuthingDefaultRequest {
 
-    public AuthingWeChatOpenRequest(AuthingConfig config) {
+    public AuthingWeChatOpenRequest(AuthingSetting config) {
         super(config, AuthingDefaultSource.WECHAT_OPEN);
     }
 

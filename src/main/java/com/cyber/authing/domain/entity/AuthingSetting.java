@@ -1,12 +1,12 @@
-package com.cyber.infrastructure.config;
+package com.cyber.authing.domain.entity;
 
-
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
 
-public class AuthingConfig {
+public class AuthingSetting {
+
+    private String source;
 
     private String clientId;
 
@@ -32,6 +32,13 @@ public class AuthingConfig {
     private String authServerId;
     private boolean ignoreCheckRedirectUri;
 
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
 
     public String getClientId() {
         return clientId;

@@ -1,4 +1,4 @@
-package com.cyber.domain.entity;
+package com.cyber.authing.domain.entity;
 
 
 import java.io.Serializable;
@@ -19,7 +19,6 @@ public class AuthingRawToken implements Serializable {
     private String scope;
     private String tokenType;
     private String idToken;
-
 
     /**
      * Twitter

@@ -1,4 +1,4 @@
-package com.cyber.domain.request;
+package com.cyber.authing.domain.request;
 
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.cache.AuthStateCache;
