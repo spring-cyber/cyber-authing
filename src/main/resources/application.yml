@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: @project.artifactId@
+  cloud:
+    nacos:
+      config:
+        # Nacos 认证用户
+        username: @nacos_username@
+        # Nacos 认证密码
+        password: @nacos_password@
+        server-addr: @nacos_address@
+        file-extension: yml
+        group: @profile.name@
+        namespace: @nacos_namespace@
+      discovery:
+        namespace: @nacos_namespace@
+        server-addr: @nacos_address@
+        group: @profile.name@
+        watch:
+          enabled: false
+  config:
+    import:
+      - nacos:application-@profile.name@.yml
+      - nacos:@project.artifactId@-@profile.name@.yml
+  main:
+    #允许存在多个Feign调用相同Service的接口
+    allow-bean-definition-overriding: true
