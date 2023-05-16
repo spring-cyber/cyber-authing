@@ -16,8 +16,8 @@ spring:
         namespace: @nacos_namespace@
         server-addr: @nacos_address@
         group: @profile.name@
-        watch:
-          enabled: false
+      #  watch:
+      #    enabled: false
   config:
     import:
       - nacos:application-@profile.name@.yml

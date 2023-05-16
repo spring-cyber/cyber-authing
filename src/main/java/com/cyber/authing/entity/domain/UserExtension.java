@@ -1,0 +1,1 @@
+package com.cyber.authing.entity.domain;import com.alibaba.fastjson.JSONArray;import com.cyber.domain.entity.PagingEntity;import lombok.Data;import lombok.EqualsAndHashCode;@EqualsAndHashCode(callSuper = true)@Datapublic class UserExtension extends PagingEntity {	/**用户ID*/	private Long userId;	/**部门岗位信息*/	private JSONArray deptInfo;}
