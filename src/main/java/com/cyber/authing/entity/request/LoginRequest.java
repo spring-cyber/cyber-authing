@@ -15,7 +15,7 @@ public class LoginRequest {
      * 用户名称
      */
     @NotBlank(message = "用户名不能为空")
-    private String name;
+    private String username;
     /**
      * 用户密码
      */

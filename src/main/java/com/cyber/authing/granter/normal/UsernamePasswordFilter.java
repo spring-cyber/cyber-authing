@@ -49,7 +49,7 @@ public class UsernamePasswordFilter extends AbstractAuthenticationProcessingFilt
             logger.info("url:" + request.getRequestURI());
             // 获取登录表单
             LoginRequest loginRequest = getLoginRequest(request);
-            UsernamePasswordToken usernamePasswordToken = UsernamePasswordToken.unauthenticated(loginRequest.getName(), loginRequest.getPassword());
+            UsernamePasswordToken usernamePasswordToken = UsernamePasswordToken.unauthenticated(loginRequest.getUsername(), loginRequest.getPassword());
             this.setDetails(request, usernamePasswordToken);
             this.setContinueChainBeforeSuccessfulAuthentication(false);
             return this.getAuthenticationManager().authenticate(usernamePasswordToken);

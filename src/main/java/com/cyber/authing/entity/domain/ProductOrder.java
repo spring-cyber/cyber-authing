@@ -1,0 +1,1 @@
+package com.cyber.authing.entity.domain;import com.cyber.domain.entity.PagingEntity;import lombok.*;@EqualsAndHashCode(callSuper = true)@Data@Builder@AllArgsConstructor@NoArgsConstructorpublic class ProductOrder extends PagingEntity {    /**     * 产品ID     */    private Integer productId;    /**     * 项目ID     */    private Integer projectId;}

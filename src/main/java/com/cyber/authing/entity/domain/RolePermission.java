@@ -1,0 +1,1 @@
+package com.cyber.authing.entity.domain;import com.cyber.domain.entity.PagingEntity;import lombok.*;@EqualsAndHashCode(callSuper = true)@Data@Builder@AllArgsConstructor@NoArgsConstructorpublic class RolePermission extends PagingEntity {    /**     * 角色ID     */    private Long roleId;    /**     * 权限ID     */    private Long permissionId;}

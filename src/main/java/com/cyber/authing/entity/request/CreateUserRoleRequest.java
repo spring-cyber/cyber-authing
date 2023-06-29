@@ -6,7 +6,10 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.beans.BeanUtils;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -14,11 +17,13 @@ public class CreateUserRoleRequest extends OperateEntity {
     /**
      * 用户ID
      */
+    @NotNull
     private Long userId;
     /**
      * 角色ID
      */
-    private Long roleId;
+    @NotEmpty
+    private List<Long> roleIds;
 
     public UserRole toEvent(String userCode, String tenantCode) {
         UserRole userRole = new UserRole();
@@ -28,7 +33,6 @@ public class CreateUserRoleRequest extends OperateEntity {
         userRole.setCreateTime(new Date());
         userRole.setUpdator(userCode);
         userRole.setUpdateTime(new Date());
-
         return userRole;
     }
 }

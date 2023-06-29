@@ -3,11 +3,15 @@ package com.cyber.authing.service.impl;
 import com.cyber.authing.entity.domain.ActivityLog;
 import com.cyber.authing.mapper.ActivityLogMapper;
 import com.cyber.authing.service.ActivityLogService;
+import com.cyber.domain.entity.PagingResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
@@ -29,7 +33,7 @@ public class ActivityLogServiceImpl implements ActivityLogService {
             return 0;
         }
 
-        return activityLogMapper.insert(activityLog);
+        return activityLogMapper.save(activityLog);
     }
 
     @Override
@@ -65,40 +69,36 @@ public class ActivityLogServiceImpl implements ActivityLogService {
         activityLog = activityLogMapper.selectOne(activityLog);
         return activityLog;
     }
-//
-//
-//    @Override
-//    public PagingData<ActivityLog> selectPage(ActivityLog activityLog) {
-//        PagingData<ActivityLog> pagingData = new PagingData<ActivityLog>();
-//
-//        if( null == activityLog ) {
-//            LOGGER.warn("select activityLog page, but activityLog is null...");
-//            return pagingData;
-//        }
-//
-//        Integer queryCount = activityLogMapper.selectByIndexCount( activityLog );
-//        pagingData.setTotal( queryCount );
-//
-//        if( null != queryCount && queryCount <= 0 ) {
-//            LOGGER.info("select activityLog page , but count {} == 0 ...",queryCount);
-//            return pagingData;
-//        }
-//
-//        List<ActivityLog> activityLogs =  selectByIndex( activityLog );
-//        pagingData.setRows(activityLogs);
-//        return pagingData;
-//    }
-//
-//    @Override
-//    public List<ActivityLog> selectByIndex(ActivityLog activityLog) {
-//        List<ActivityLog> activityLogs = new ArrayList<ActivityLog>();
-//        if( activityLog == null) {
-//            LOGGER.warn("select activityLog by index, but activityLog is null ...");
-//            return activityLogs;
-//        }
-//
-//        activityLogs = activityLogMapper.selectByIndex( activityLog );
-//
-//        return activityLogs;
-//    }
+
+
+    @Override
+    public PagingResponse<ActivityLog> selectPage(ActivityLog activityLog) {
+        PagingResponse<ActivityLog> pagingData = new PagingResponse<>();
+
+        if (null == activityLog) {
+            LOGGER.warn("select activityLog page, but activityLog is null...");
+            return pagingData;
+        }
+
+        Integer queryCount = activityLogMapper.selectByIndexCount(activityLog);
+        pagingData.setRow(queryCount);
+
+        if (queryCount <= 0) {
+            LOGGER.info("select activityLog page , but count {} == 0 ...", queryCount);
+            return pagingData;
+        }
+        pagingData.setData(selectByIndex(activityLog));
+        return pagingData;
+    }
+
+    @Override
+    public List<ActivityLog> selectByIndex(ActivityLog activityLog) {
+        List<ActivityLog> activityLogs = new ArrayList<>();
+        if (activityLog == null) {
+            LOGGER.warn("select activityLog by index, but activityLog is null ...");
+            return activityLogs;
+        }
+        activityLogs = activityLogMapper.selectByIndex(activityLog);
+        return activityLogs;
+    }
 }

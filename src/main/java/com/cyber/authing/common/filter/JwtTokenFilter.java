@@ -7,7 +7,6 @@ import com.cyber.authing.exception.InvalidJwtAuthenticationException;
 import com.cyber.authing.entity.dto.CyberUserDetails;
 import com.cyber.authing.granter.normal.UsernamePasswordToken;
 import com.cyber.authing.service.UserRoleService;
-import com.cyber.authing.service.UserService;
 import com.cyber.domain.constant.AuthingTokenKey;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -21,7 +20,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,10 +41,13 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         String reqToken = request.getHeader(AuthingTokenKey.X_CLIENT_JWT_TOKEN);
         logger.info("现在{}正在进行jwt认证:{}", request.getRequestURI(), reqToken);
         String publicKey = jwtTokenProvider.getKey("publicKey");
-        // 判断token和请求用户是否存在
-        if (StringUtils.isBlank(reqToken)) {
+        if ("/login".equals(request.getRequestURI())){
             filterChain.doFilter(request, response);
             return;
+        }
+        // 判断token和请求用户是否存在
+        if (StringUtils.isBlank(reqToken)) {
+            throw new InvalidJwtAuthenticationException("会话不存在");
         }
         // 判断token是否过期
         if (!jwtTokenProvider.validateToken(reqToken, publicKey)) {

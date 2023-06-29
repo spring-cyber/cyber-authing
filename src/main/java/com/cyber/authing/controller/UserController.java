@@ -1,5 +1,6 @@
 package com.cyber.authing.controller;
 
+import com.cyber.authing.common.util.AuthenticationUtil;
 import com.cyber.authing.entity.domain.Account;
 import com.cyber.authing.entity.domain.User;
 import com.cyber.authing.entity.dto.UserDTO;
@@ -8,9 +9,9 @@ import com.cyber.authing.entity.request.UpdateUserRequest;
 import com.cyber.authing.entity.request.UserRequest;
 import com.cyber.authing.mapper.UserMapper;
 import com.cyber.authing.service.UserService;
+import com.cyber.domain.constant.HttpResultCode;
 import com.cyber.domain.entity.IdRequest;
 import com.cyber.domain.entity.Response;
-import com.cyber.mybatiesplus.core.query.QueryWrapperX;
 import io.jsonwebtoken.lang.Assert;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class UserController {
 
     @PostMapping("/register")
     public Response register(@RequestBody @Valid CreateUserRequest request) {
-        User user = request.toEvent(getUserId());
+        User user = request.toEvent(AuthenticationUtil.getUserCode(), request.getTenantCode());
         UserDTO userDTO = new UserDTO(user);
         Account account = Account.builder().password(request.getPassword()).userId(user.getId()).build();
         String name = request.getName();
@@ -59,37 +60,41 @@ public class UserController {
 
     @PostMapping("/user")
     public Response saveUser(@RequestBody @Valid CreateUserRequest request) {
-        User user = request.toEvent(getUserId());
-        userService.save(user);
-        return new Response();
+        if (StringUtils.isBlank(request.getTenantCode())) {
+            return Response.fail(HttpResultCode.PARAM_ERROR);
+        }
+        User user = request.toEvent(AuthenticationUtil.getUserCode(), request.getTenantCode());
+        int result = userService.save(user);
+        if (result < 1) {
+            return Response.fail(HttpResultCode.SERVER_ERROR);
+        }
+        return Response.success();
     }
 
     @PutMapping("/user")
     public Response updateUser(@RequestBody @Valid UpdateUserRequest request) {
-        User user = request.toEvent(getUserId());
-        userService.updateById(user);
-        return new Response();
+        User user = request.toEvent(AuthenticationUtil.getUserCode(), request.getTenantCode());
+        int result = userService.updateById(user);
+        if (result < 1) {
+            return Response.fail(HttpResultCode.SERVER_ERROR);
+        }
+        return Response.success();
     }
 
     @DeleteMapping("/user")
     public Response deleteUser(@Valid IdRequest idRequest) {
         User user = new User();
         user.setId(idRequest.getId());
-        user.setUpdator(getUserId());
+        user.setUpdator(AuthenticationUtil.getUserCode());
         user.setUpdateTime(new Date());
         userService.deleteById(user);
         return new Response();
     }
 
-    @GetMapping("/user")
+    @GetMapping("/user/search")
     @PreAuthorize("hasAnyAuthority('/user')")
     public Response getUser(UserRequest userRequest) {
         User user = userRequest.toEvent(null);
-        QueryWrapperX queryWrapperX = new QueryWrapperX<>().likeIfPresent("name", userRequest.getName());
-        return userMapper.selectPage(userRequest, queryWrapperX);
-    }
-
-    private String getUserId() {
-        return "test";
+        return userService.selectPage(user);
     }
 }
