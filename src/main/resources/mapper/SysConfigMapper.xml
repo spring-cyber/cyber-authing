@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cyber.authing.domain.repository.SysConfigMapper">
+	<sql id="baseColumns">
+		 id, product_id, config_name, config_code, config_key, config_value, config_type, description, status, deleted, creator, create_time, updator, update_time, remark, version
+	</sql>
+
+	<sql id="updateColumns">
+		<set>
+			  <if test="id != null">	id   = #{id},  </if>  <if test="productId != null">	product_id   = #{productId},  </if>  <if test="configName != null">	config_name   = #{configName},  </if>  <if test="configCode != null">	config_code   = #{configCode},  </if>  <if test="configKey != null">	config_key   = #{configKey},  </if>  <if test="configValue != null">	config_value   = #{configValue},  </if>  <if test="configType != null">	config_type   = #{configType},  </if>  <if test="description != null">	description   = #{description},  </if>  <if test="status != null">	status   = #{status},  </if>  <if test="deleted != null">	deleted   = #{deleted},  </if>  <if test="creator != null">	creator   = #{creator},  </if>  <if test="createTime != null">	create_time   = #{createTime},  </if>  <if test="updator != null">	updator   = #{updator},  </if>  <if test="updateTime != null">	update_time   = #{updateTime},  </if>  <if test="remark != null">	remark   = #{remark},  </if>  <if test="version != null">	version   = #{version},  </if>
+		</set>
+	</sql>
+
+    <sql id="whereClause">
+        <trim prefix="WHERE" prefixOverrides="AND">
+			  <if test="id != null">	    AND ${columnPrefix}id = #{id}  </if>  <if test="productId != null">	    AND ${columnPrefix}product_id = #{productId}  </if>  <if test="configName != null">	    AND ${columnPrefix}config_name = #{configName}  </if>  <if test="configCode != null">	    AND ${columnPrefix}config_code = #{configCode}  </if>  <if test="configKey != null">	    AND ${columnPrefix}config_key = #{configKey}  </if>  <if test="configValue != null">	    AND ${columnPrefix}config_value = #{configValue}  </if>  <if test="configType != null">	    AND ${columnPrefix}config_type = #{configType}  </if>  <if test="description != null">	    AND ${columnPrefix}description = #{description}  </if>  <if test="status != null">	    AND ${columnPrefix}status = #{status}  </if>  <if test="deleted != null">	    AND ${columnPrefix}deleted = #{deleted}  </if>  <if test="creator != null">	    AND ${columnPrefix}creator = #{creator}  </if>  <if test="createTime != null">	    AND ${columnPrefix}create_time = #{createTime}  </if>  <if test="updator != null">	    AND ${columnPrefix}updator = #{updator}  </if>  <if test="updateTime != null">	    AND ${columnPrefix}update_time = #{updateTime}  </if>  <if test="remark != null">	    AND ${columnPrefix}remark = #{remark}  </if>
+        </trim>
+    </sql>
+
+	<insert id="save" parameterType="com.cyber.authing.domain.entity.SysConfig">
+		insert into sys_config
+		(<include refid="saveColumn"/>)
+		values
+		(<include refid="saveValue"/>)
+	</insert>
+
+	<sql id="saveColumn">
+		<trim suffixOverrides=",">
+			<if test="id!= null">id,</if><if test="productId!= null">product_id,</if><if test="configName!= null">config_name,</if><if test="configCode!= null">config_code,</if><if test="configKey!= null">config_key,</if><if test="configValue!= null">config_value,</if><if test="configType!= null">config_type,</if><if test="description!= null">description,</if><if test="status!= null">status,</if><if test="deleted!= null">deleted,</if><if test="creator!= null">creator,</if><if test="createTime!= null">create_time,</if><if test="updator!= null">updator,</if><if test="updateTime!= null">update_time,</if><if test="remark!= null">remark,</if><if test="version!= null">version,</if>
+		</trim>
+	</sql>
+
+	<sql id="saveValue">
+		<trim suffixOverrides=",">
+			<if test="id!= null">#{id},</if><if test="productId!= null">#{productId},</if><if test="configName!= null">#{configName},</if><if test="configCode!= null">#{configCode},</if><if test="configKey!= null">#{configKey},</if><if test="configValue!= null">#{configValue},</if><if test="configType!= null">#{configType},</if><if test="description!= null">#{description},</if><if test="status!= null">#{status},</if><if test="deleted!= null">#{deleted},</if><if test="creator!= null">#{creator},</if><if test="createTime!= null">#{createTime},</if><if test="updator!= null">#{updator},</if><if test="updateTime!= null">#{updateTime},</if><if test="remark!= null">#{remark},</if><if test="version!= null">#{version},</if>
+		</trim>
+	</sql>
+
+	<delete id="deleteById" parameterType="com.cyber.authing.domain.entity.SysConfig">
+		DELETE FROM sys_config WHERE id = #{id}
+	</delete>
+
+	<update id="updateById" parameterType="com.cyber.authing.domain.entity.SysConfig">
+		update sys_config
+		<include refid="updateColumns" />
+		, version = version + 1
+		where id = #{id}
+		and version = #{version}
+	</update>
+
+	<select id="selectOne" resultType="com.cyber.authing.domain.entity.SysConfig" parameterType="com.cyber.authing.domain.entity.SysConfig">
+		SELECT
+		<include refid="baseColumns" />
+		FROM sys_config
+        <include refid="whereClause">
+            <property name="columnPrefix" value=""/>
+        </include>
+	</select>
+
+	<select id="selectByIndexCount" parameterType="com.cyber.authing.domain.entity.SysConfig" resultType="int">
+		SELECT count(1)
+		FROM sys_config
+        <include refid="whereClause">
+            <property name="columnPrefix" value=""/>
+        </include>
+	</select>
+
+	<select id="selectByIndex" parameterType="com.cyber.authing.domain.entity.SysConfig" resultType="com.cyber.authing.domain.entity.SysConfig">
+		SELECT
+		<include refid="baseColumns" />
+		FROM sys_config
+        <include refid="whereClause">
+            <property name="columnPrefix" value=""/>
+        </include>
+		<if test="sortBy != null and sortBy != '' and sortType != null and sortType != '' ">
+			ORDER BY ${sortBy} ${sortType}
+		</if>
+		LIMIT #{offset} , #{limit}
+	</select>
+</mapper>

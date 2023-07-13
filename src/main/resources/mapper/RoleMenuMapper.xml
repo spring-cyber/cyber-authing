@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cyber.authing.domain.repository.RoleMenuMapper">
+	<sql id="baseColumns">
+		 id, role_id, menu_id, status, deleted, creator, create_time, updator, update_time, remark, version
+	</sql>
+
+	<sql id="updateColumns">
+		<set>
+			  <if test="id != null">	id   = #{id},  </if>  <if test="roleId != null">	role_id   = #{roleId},  </if>  <if test="menuId != null">	menu_id   = #{menuId},  </if>  <if test="status != null">	status   = #{status},  </if>  <if test="deleted != null">	deleted   = #{deleted},  </if>  <if test="creator != null">	creator   = #{creator},  </if>  <if test="createTime != null">	create_time   = #{createTime},  </if>  <if test="updator != null">	updator   = #{updator},  </if>  <if test="updateTime != null">	update_time   = #{updateTime},  </if>  <if test="remark != null">	remark   = #{remark},  </if>  <if test="version != null">	version   = #{version},  </if>
+		</set>
+	</sql>
+
+    <sql id="whereClause">
+        <trim prefix="WHERE" prefixOverrides="AND">
+			  <if test="id != null">	    AND ${columnPrefix}id = #{id}  </if>  <if test="roleId != null">	    AND ${columnPrefix}role_id = #{roleId}  </if>  <if test="menuId != null">	    AND ${columnPrefix}menu_id = #{menuId}  </if>  <if test="status != null">	    AND ${columnPrefix}status = #{status}  </if>  <if test="deleted != null">	    AND ${columnPrefix}deleted = #{deleted}  </if>  <if test="creator != null">	    AND ${columnPrefix}creator = #{creator}  </if>  <if test="createTime != null">	    AND ${columnPrefix}create_time = #{createTime}  </if>  <if test="updator != null">	    AND ${columnPrefix}updator = #{updator}  </if>  <if test="updateTime != null">	    AND ${columnPrefix}update_time = #{updateTime}  </if>  <if test="remark != null">	    AND ${columnPrefix}remark = #{remark}  </if>
+        </trim>
+    </sql>
+
+	<insert id="save" parameterType="com.cyber.authing.domain.entity.RoleMenu">
+		insert into role_menu
+		(<include refid="saveColumn"/>)
+		values
+		(<include refid="saveValue"/>)
+	</insert>
+
+	<sql id="saveColumn">
+		<trim suffixOverrides=",">
+			<if test="id!= null">id,</if><if test="roleId!= null">role_id,</if><if test="menuId!= null">menu_id,</if><if test="status!= null">status,</if><if test="deleted!= null">deleted,</if><if test="creator!= null">creator,</if><if test="createTime!= null">create_time,</if><if test="updator!= null">updator,</if><if test="updateTime!= null">update_time,</if><if test="remark!= null">remark,</if><if test="version!= null">version,</if>
+		</trim>
+	</sql>
+
+	<sql id="saveValue">
+		<trim suffixOverrides=",">
+			<if test="id!= null">#{id},</if><if test="roleId!= null">#{roleId},</if><if test="menuId!= null">#{menuId},</if><if test="status!= null">#{status},</if><if test="deleted!= null">#{deleted},</if><if test="creator!= null">#{creator},</if><if test="createTime!= null">#{createTime},</if><if test="updator!= null">#{updator},</if><if test="updateTime!= null">#{updateTime},</if><if test="remark!= null">#{remark},</if><if test="version!= null">#{version},</if>
+		</trim>
+	</sql>
+
+	<delete id="deleteById" parameterType="com.cyber.authing.domain.entity.RoleMenu">
+		DELETE FROM role_menu WHERE id = #{id}
+	</delete>
+
+	<update id="updateById" parameterType="com.cyber.authing.domain.entity.RoleMenu">
+		update role_menu
+		<include refid="updateColumns" />
+		, version = version + 1
+		where id = #{id}
+		and version = #{version}
+	</update>
+
+	<select id="selectOne" resultType="com.cyber.authing.domain.entity.RoleMenu" parameterType="com.cyber.authing.domain.entity.RoleMenu">
+		SELECT
+		<include refid="baseColumns" />
+		FROM role_menu
+        <include refid="whereClause">
+            <property name="columnPrefix" value=""/>
+        </include>
+	</select>
+
+	<select id="selectByIndexCount" parameterType="com.cyber.authing.domain.entity.RoleMenu" resultType="int">
+		SELECT count(1)
+		FROM role_menu
+        <include refid="whereClause">
+            <property name="columnPrefix" value=""/>
+        </include>
+	</select>
+
+	<select id="selectByIndex" parameterType="com.cyber.authing.domain.entity.RoleMenu" resultType="com.cyber.authing.domain.entity.RoleMenu">
+		SELECT
+		<include refid="baseColumns" />
+		FROM role_menu
+        <include refid="whereClause">
+            <property name="columnPrefix" value=""/>
+        </include>
+		<if test="sortBy != null and sortBy != '' and sortType != null and sortType != '' ">
+			ORDER BY ${sortBy} ${sortType}
+		</if>
+		LIMIT #{offset} , #{limit}
+	</select>
+</mapper>

@@ -1,1 +1,0 @@
-package com.cyber.authing.entity.domain;import com.cyber.domain.entity.PagingEntity;import lombok.Data;import lombok.EqualsAndHashCode;@EqualsAndHashCode(callSuper = true)@Datapublic class UserRole extends PagingEntity {    /**     * 用户ID     */    private Long userId;    /**     * 角色ID     */    private Long roleId;}

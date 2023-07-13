@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cyber.authing.domain.repository.SysNoticeMapper">
+	<sql id="baseColumns">
+		 id, product_id, notice_title, notice_scope, notice_content, status, deleted, creator, create_time, updator, update_time, remark, version
+	</sql>
+
+	<sql id="updateColumns">
+		<set>
+			  <if test="id != null">	id   = #{id},  </if>  <if test="productId != null">	product_id   = #{productId},  </if>  <if test="noticeTitle != null">	notice_title   = #{noticeTitle},  </if>  <if test="noticeScope != null">	notice_scope   = #{noticeScope},  </if>  <if test="noticeContent != null">	notice_content   = #{noticeContent},  </if>  <if test="status != null">	status   = #{status},  </if>  <if test="deleted != null">	deleted   = #{deleted},  </if>  <if test="creator != null">	creator   = #{creator},  </if>  <if test="createTime != null">	create_time   = #{createTime},  </if>  <if test="updator != null">	updator   = #{updator},  </if>  <if test="updateTime != null">	update_time   = #{updateTime},  </if>  <if test="remark != null">	remark   = #{remark},  </if>  <if test="version != null">	version   = #{version},  </if>
+		</set>
+	</sql>
+
+    <sql id="whereClause">
+        <trim prefix="WHERE" prefixOverrides="AND">
+			  <if test="id != null">	    AND ${columnPrefix}id = #{id}  </if>  <if test="productId != null">	    AND ${columnPrefix}product_id = #{productId}  </if>  <if test="noticeTitle != null">	    AND ${columnPrefix}notice_title = #{noticeTitle}  </if>  <if test="noticeScope != null">	    AND ${columnPrefix}notice_scope = #{noticeScope}  </if>  <if test="noticeContent != null">	    AND ${columnPrefix}notice_content = #{noticeContent}  </if>  <if test="status != null">	    AND ${columnPrefix}status = #{status}  </if>  <if test="deleted != null">	    AND ${columnPrefix}deleted = #{deleted}  </if>  <if test="creator != null">	    AND ${columnPrefix}creator = #{creator}  </if>  <if test="createTime != null">	    AND ${columnPrefix}create_time = #{createTime}  </if>  <if test="updator != null">	    AND ${columnPrefix}updator = #{updator}  </if>  <if test="updateTime != null">	    AND ${columnPrefix}update_time = #{updateTime}  </if>  <if test="remark != null">	    AND ${columnPrefix}remark = #{remark}  </if>
+        </trim>
+    </sql>
+
+	<insert id="save" parameterType="com.cyber.authing.domain.entity.SysNotice">
+		insert into sys_notice
+		(<include refid="saveColumn"/>)
+		values
+		(<include refid="saveValue"/>)
+	</insert>
+
+	<sql id="saveColumn">
+		<trim suffixOverrides=",">
+			<if test="id!= null">id,</if><if test="productId!= null">product_id,</if><if test="noticeTitle!= null">notice_title,</if><if test="noticeScope!= null">notice_scope,</if><if test="noticeContent!= null">notice_content,</if><if test="status!= null">status,</if><if test="deleted!= null">deleted,</if><if test="creator!= null">creator,</if><if test="createTime!= null">create_time,</if><if test="updator!= null">updator,</if><if test="updateTime!= null">update_time,</if><if test="remark!= null">remark,</if><if test="version!= null">version,</if>
+		</trim>
+	</sql>
+
+	<sql id="saveValue">
+		<trim suffixOverrides=",">
+			<if test="id!= null">#{id},</if><if test="productId!= null">#{productId},</if><if test="noticeTitle!= null">#{noticeTitle},</if><if test="noticeScope!= null">#{noticeScope},</if><if test="noticeContent!= null">#{noticeContent},</if><if test="status!= null">#{status},</if><if test="deleted!= null">#{deleted},</if><if test="creator!= null">#{creator},</if><if test="createTime!= null">#{createTime},</if><if test="updator!= null">#{updator},</if><if test="updateTime!= null">#{updateTime},</if><if test="remark!= null">#{remark},</if><if test="version!= null">#{version},</if>
+		</trim>
+	</sql>
+
+	<delete id="deleteById" parameterType="com.cyber.authing.domain.entity.SysNotice">
+		DELETE FROM sys_notice WHERE id = #{id}
+	</delete>
+
+	<update id="updateById" parameterType="com.cyber.authing.domain.entity.SysNotice">
+		update sys_notice
+		<include refid="updateColumns" />
+		, version = version + 1
+		where id = #{id}
+		and version = #{version}
+	</update>
+
+	<select id="selectOne" resultType="com.cyber.authing.domain.entity.SysNotice" parameterType="com.cyber.authing.domain.entity.SysNotice">
+		SELECT
+		<include refid="baseColumns" />
+		FROM sys_notice
+        <include refid="whereClause">
+            <property name="columnPrefix" value=""/>
+        </include>
+	</select>
+
+	<select id="selectByIndexCount" parameterType="com.cyber.authing.domain.entity.SysNotice" resultType="int">
+		SELECT count(1)
+		FROM sys_notice
+        <include refid="whereClause">
+            <property name="columnPrefix" value=""/>
+        </include>
+	</select>
+
+	<select id="selectByIndex" parameterType="com.cyber.authing.domain.entity.SysNotice" resultType="com.cyber.authing.domain.entity.SysNotice">
+		SELECT
+		<include refid="baseColumns" />
+		FROM sys_notice
+        <include refid="whereClause">
+            <property name="columnPrefix" value=""/>
+        </include>
+		<if test="sortBy != null and sortBy != '' and sortType != null and sortType != '' ">
+			ORDER BY ${sortBy} ${sortType}
+		</if>
+		LIMIT #{offset} , #{limit}
+	</select>
+</mapper>

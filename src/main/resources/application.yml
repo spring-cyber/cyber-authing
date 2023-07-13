@@ -1,27 +1,52 @@
+server:
+  port: 8080
+
 spring:
-  application:
-    name: @project.artifactId@
-  cloud:
-    nacos:
-      config:
-        # Nacos 认证用户
-        username: @nacos_username@
-        # Nacos 认证密码
-        password: @nacos_password@
-        server-addr: @nacos_address@
-        file-extension: yml
-        group: @profile.name@
-        namespace: @nacos_namespace@
-      discovery:
-        namespace: @nacos_namespace@
-        server-addr: @nacos_address@
-        group: @profile.name@
-      #  watch:
-      #    enabled: false
-  config:
-    import:
-      - nacos:application-@profile.name@.yml
-      - nacos:@project.artifactId@-@profile.name@.yml
-  main:
-    #允许存在多个Feign调用相同Service的接口
-    allow-bean-definition-overriding: true
+  jackson:
+    date-format: yyyy-MM-dd'T'HH:mm:ss.SSSZZZZ
+    default-property-inclusion: non_null
+    time-zone: GMT+8
+  datasource:
+    url: jdbc:mysql://139.9.181.241:13307/cyber_auth?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true&allowPublicKeyRetrieval=true
+    username: root
+    password: STS2022mysql
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    druid:
+      initial-size: 1
+      min-idle: 5
+      max-active: 10
+      max-wait: 10000
+      time-between-eviction-runs-millis: 110000
+      min-evictable-idle-time-millis: 300000
+      test-on-borrow: true
+      test-on-return: true
+      test-while-idle: true
+      validation-query: select 1 from dual
+      keep-alive: true
+      remove-abandoned: true
+      remove-abandoned-timeout: 80
+      log-abandoned: true
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapperLocations: classpath:mapper/*.xml
+  typeAliasesPackage: com.cyber.authing.domain
+
+
+file:
+  oss:
+    enable: true
+    info: true
+    path-style-access: true
+    endpoint: http://127.0.0.1:9000
+    access-key: minio
+    secret-key: minio123
