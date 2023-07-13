@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -11,9 +11,55 @@
         <relativePath/>
     </parent>
 
-    <groupId>com.cyber.authing</groupId>
+    <groupId>io.github.spring-cyber</groupId>
     <artifactId>cyber-authing</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>0.0.1</version>
+
+    <name>cyber-authing</name>
+    <url>https://github.com/spring-cyber</url>
+    <description>Cyber Authing Project</description>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+    </properties>
+
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+
+    <developers>
+        <developer>
+            <name>janusjia</name>
+            <email>531907642@qq.com</email>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>+8</timezone>
+        </developer>
+        <developer>
+            <name>zhoutaoo</name>
+            <email>zhoutaoo@foxmail.com</email>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>+8</timezone>
+        </developer>
+    </developers>
+
+    <scm>
+        <tag>cyber-authing</tag>
+        <url>https://github.com/spring-cyber/cyber-authing</url>
+        <connection>scm:git:https://github.com/spring-cyber/cyber-authing.git</connection>
+        <developerConnection>scm:git:https://github.com/spring-cyber/cyber-authing.git</developerConnection>
+    </scm>
 
     <dependencies>
         <dependency>
@@ -59,6 +105,24 @@
             <version>5.8.20</version>
         </dependency>
     </dependencies>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
+    <repositories>
+        <repository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/releases/</url>
+        </repository>
+    </repositories>
 
     <build>
         <plugins>
