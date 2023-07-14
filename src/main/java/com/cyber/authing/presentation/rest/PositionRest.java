@@ -21,7 +21,7 @@ import com.cyber.authing.domain.entity.Position;
 import com.cyber.authing.domain.request.PositionRequest;
 import com.cyber.authing.domain.request.CreatePositionRequest;
 
-import com.cyber.authing.application.PositionService;
+import com.cyber.authing.application.service.PositionService;
 
 @RestController
 @RequiredArgsConstructor

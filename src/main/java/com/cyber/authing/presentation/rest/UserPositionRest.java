@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 import com.cyber.authing.domain.entity.UserPosition;
 import com.cyber.authing.domain.request.CreateUserPositionRequest;
 
-import com.cyber.authing.application.UserPositionService;
+import com.cyber.authing.application.service.UserPositionService;
 
 @RestController
 @RequiredArgsConstructor

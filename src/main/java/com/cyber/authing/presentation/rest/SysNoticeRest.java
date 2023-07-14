@@ -19,7 +19,7 @@ import com.cyber.authing.domain.entity.SysNotice;
 import com.cyber.authing.domain.request.SysNoticeRequest;
 import com.cyber.authing.domain.request.CreateSysNoticeRequest;
 
-import com.cyber.authing.application.SysNoticeService;
+import com.cyber.authing.application.service.SysNoticeService;
 
 @RestController
 @RequiredArgsConstructor

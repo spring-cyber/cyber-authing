@@ -19,7 +19,7 @@ import com.cyber.authing.domain.entity.ActivityLog;
 import com.cyber.authing.domain.request.ActivityLogRequest;
 import com.cyber.authing.domain.request.CreateActivityLogRequest;
 
-import com.cyber.authing.application.ActivityLogService;
+import com.cyber.authing.application.service.ActivityLogService;
 
 @RestController
 @RequiredArgsConstructor

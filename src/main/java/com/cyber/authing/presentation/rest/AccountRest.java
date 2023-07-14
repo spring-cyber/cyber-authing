@@ -19,7 +19,7 @@ import com.cyber.authing.domain.entity.Account;
 import com.cyber.authing.domain.request.AccountRequest;
 import com.cyber.authing.domain.request.CreateAccountRequest;
 
-import com.cyber.authing.application.AccountService;
+import com.cyber.authing.application.service.AccountService;
 
 @RestController
 @RequiredArgsConstructor

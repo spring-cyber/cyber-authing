@@ -21,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 import com.cyber.authing.domain.entity.User;
 import com.cyber.authing.domain.request.CreateUserRequest;
 
-import com.cyber.authing.application.UserService;
+import com.cyber.authing.application.service.UserService;
 
 @RestController
 @RequiredArgsConstructor

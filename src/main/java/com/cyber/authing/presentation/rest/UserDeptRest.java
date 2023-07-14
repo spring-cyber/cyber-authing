@@ -6,8 +6,6 @@ import javax.validation.Valid;
 
 import com.cyber.application.controller.AuthingTokenController;
 import com.cyber.domain.constant.HttpResultCode;
-import org.springframework.context.annotation.Scope;
-import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.bind.annotation.*;
 import com.cyber.domain.entity.DataResponse;
 import com.cyber.domain.entity.IdRequest;
@@ -21,7 +19,7 @@ import com.cyber.authing.domain.request.UserDeptRequest;
 import com.cyber.authing.domain.request.CreateUserDeptRequest;
 import com.cyber.authing.domain.request.UpdateUserDeptRequest;
 
-import com.cyber.authing.application.UserDeptService;
+import com.cyber.authing.application.service.UserDeptService;
 
 @RestController
 @RequiredArgsConstructor

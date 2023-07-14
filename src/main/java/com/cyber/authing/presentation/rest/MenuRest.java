@@ -19,7 +19,7 @@ import com.cyber.authing.domain.entity.Menu;
 import com.cyber.authing.domain.request.MenuRequest;
 import com.cyber.authing.domain.request.CreateMenuRequest;
 
-import com.cyber.authing.application.MenuService;
+import com.cyber.authing.application.service.MenuService;
 
 @RestController
 @RequiredArgsConstructor

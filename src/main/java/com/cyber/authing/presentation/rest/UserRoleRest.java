@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 import com.cyber.authing.domain.entity.UserRole;
 import com.cyber.authing.domain.request.CreateUserRoleRequest;
 
-import com.cyber.authing.application.UserRoleService;
+import com.cyber.authing.application.service.UserRoleService;
 
 @RestController
 @RequiredArgsConstructor

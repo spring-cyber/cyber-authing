@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 
+import cn.hutool.core.lang.tree.Tree;
 import com.cyber.application.controller.AuthingTokenController;
 import com.cyber.authing.domain.request.UpdateProductRequest;
 import com.cyber.authing.domain.response.CountStatus;
@@ -21,7 +22,7 @@ import com.cyber.authing.domain.entity.Product;
 import com.cyber.authing.domain.request.ProductRequest;
 import com.cyber.authing.domain.request.CreateProductRequest;
 
-import com.cyber.authing.application.ProductService;
+import com.cyber.authing.application.service.ProductService;
 
 @RestController
 @RequiredArgsConstructor
@@ -39,10 +40,19 @@ public class ProductRest extends AuthingTokenController{
 	}
 
 	@GetMapping("/product/status/count")
-	public Response selectEnterpriseStatusCount() {
+	public Response selectProductStatusCount() {
 		DataResponse<List<CountStatus>> response = new DataResponse<>();
 		List<CountStatus> countStatus = productService.countStatus();
 		response.setData(countStatus);
+		return response;
+	}
+
+	@GetMapping("/product/tree")
+	public Response selectProduct(@Valid ProductRequest request) {
+		DataResponse<List<Tree<String>>> response = new DataResponse<>();
+		Product product = request.toEvent(request.getTenantCode());
+		List<Tree<String>> productTree = productService.selectTree(product);
+		response.setData(productTree);
 		return response;
 	}
 

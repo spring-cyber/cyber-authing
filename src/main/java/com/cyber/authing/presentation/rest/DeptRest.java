@@ -22,7 +22,7 @@ import com.cyber.authing.domain.entity.Dept;
 import com.cyber.authing.domain.request.DeptRequest;
 import com.cyber.authing.domain.request.CreateDeptRequest;
 
-import com.cyber.authing.application.DeptService;
+import com.cyber.authing.application.service.DeptService;
 
 @RestController
 @RequiredArgsConstructor

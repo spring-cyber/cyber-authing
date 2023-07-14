@@ -19,7 +19,7 @@ import com.cyber.authing.domain.entity.SysConfig;
 import com.cyber.authing.domain.request.SysConfigRequest;
 import com.cyber.authing.domain.request.CreateSysConfigRequest;
 
-import com.cyber.authing.application.SysConfigService;
+import com.cyber.authing.application.service.SysConfigService;
 
 @RestController
 @RequiredArgsConstructor

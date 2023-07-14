@@ -19,7 +19,7 @@ import com.cyber.authing.domain.entity.AccessConfig;
 import com.cyber.authing.domain.request.AccessConfigRequest;
 import com.cyber.authing.domain.request.CreateAccessConfigRequest;
 
-import com.cyber.authing.application.AccessConfigService;
+import com.cyber.authing.application.service.AccessConfigService;
 
 @RestController
 @RequiredArgsConstructor

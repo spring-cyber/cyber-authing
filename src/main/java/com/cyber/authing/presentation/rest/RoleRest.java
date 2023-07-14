@@ -19,7 +19,7 @@ import com.cyber.authing.domain.entity.Role;
 import com.cyber.authing.domain.request.RoleRequest;
 import com.cyber.authing.domain.request.CreateRoleRequest;
 
-import com.cyber.authing.application.RoleService;
+import com.cyber.authing.application.service.RoleService;
 
 @RestController
 @RequiredArgsConstructor

@@ -19,7 +19,7 @@ import com.cyber.authing.domain.entity.RoleMenu;
 import com.cyber.authing.domain.request.RoleMenuRequest;
 import com.cyber.authing.domain.request.CreateRoleMenuRequest;
 
-import com.cyber.authing.application.RoleMenuService;
+import com.cyber.authing.application.service.RoleMenuService;
 
 @RestController
 @RequiredArgsConstructor

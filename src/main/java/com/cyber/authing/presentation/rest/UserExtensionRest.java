@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 import com.cyber.authing.domain.entity.UserExtension;
 import com.cyber.authing.domain.request.CreateUserExtensionRequest;
 
-import com.cyber.authing.application.UserExtensionService;
+import com.cyber.authing.application.service.UserExtensionService;
 
 @RestController
 @RequiredArgsConstructor
