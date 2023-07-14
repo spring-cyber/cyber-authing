@@ -1,30 +1,28 @@
 package com.cyber.authing.application.service.impl;
 
-import java.util.*;
-import java.util.stream.Collectors;
-
 import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.core.lang.tree.TreeNode;
 import cn.hutool.core.lang.tree.TreeUtil;
 import cn.hutool.core.util.IdUtil;
+import com.cyber.authing.application.service.EnterpriseService;
 import com.cyber.authing.application.service.UserDeptService;
 import com.cyber.authing.application.service.UserService;
 import com.cyber.authing.domain.entity.Dept;
+import com.cyber.authing.domain.entity.Enterprise;
 import com.cyber.authing.domain.entity.User;
 import com.cyber.authing.domain.entity.UserDept;
 import com.cyber.authing.domain.repository.DeptMapper;
+import com.cyber.authing.domain.repository.EnterpriseMapper;
 import com.cyber.authing.domain.response.CountStatus;
 import com.cyber.domain.entity.PagingData;
-import com.cyber.authing.domain.repository.EnterpriseMapper;
-import com.cyber.authing.domain.entity.Enterprise;
-import com.cyber.authing.application.service.EnterpriseService;
-
 import com.cyber.domain.entity.SortingField;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Slf4j
@@ -163,7 +161,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
                     treeNode.setParentId(parenId.equals("0") ? String.valueOf(deptMap.getEnterpriseId()) : parenId);
                     treeNode.setName(deptMap.getName());
                     treeNode.setWeight(deptMap.getOrderNum());
-                    treeNode.setExtra(new HashMap<>() {{
+                    treeNode.setExtra(new HashMap<String, Object>() {{
                         put("type", "dept");
                     }});
                     return treeNode;
@@ -183,7 +181,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
                     treeNode.setParentId(parenId);
                     User user = userMap.get(String.valueOf(userDept.getUserId()));
                     treeNode.setName(user.getName());
-                    treeNode.setExtra(new HashMap<>() {{
+                    treeNode.setExtra(new HashMap<String, Object>() {{
                         put("type", "user");
                     }});
 
@@ -199,7 +197,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
                 treeNode.setId(user.getId());
                 treeNode.setParentId(parenId);
                 treeNode.setName(user.getName());
-                treeNode.setExtra(new HashMap<>() {{
+                treeNode.setExtra(new HashMap<String, Object>() {{
                     put("type", "user");
                 }});
                 collect.add(treeNode);
