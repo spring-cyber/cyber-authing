@@ -10,6 +10,7 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import com.cyber.authing.application.EnterpriseService;
 import com.cyber.authing.domain.entity.Enterprise;
+import com.cyber.authing.domain.response.CountStatus;
 import com.cyber.domain.entity.PagingData;
 import com.cyber.authing.domain.repository.DeptMapper;
 import com.cyber.authing.domain.entity.Dept;
@@ -164,5 +165,15 @@ public class DeptServiceImpl implements DeptService {
                     return treeNode;
                 }).collect(Collectors.toList()));
         return TreeUtil.build(collect, "0");
+    }
+
+    @Override
+    public List<Dept> selectList(Dept dept) {
+        return deptMapper.selectList(dept);
+    }
+
+    @Override
+    public List<CountStatus> countStatus() {
+        return deptMapper.countStatus();
     }
 }

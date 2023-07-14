@@ -118,4 +118,22 @@ public class UserDeptServiceImpl implements UserDeptService {
         }
         return userDeptMapper.saveBatch(userDepts);
     }
+
+    @Override
+    public List<UserDept> selectList(UserDept userDept) {
+        List<UserDept> userDepts = new ArrayList<>();
+        if( null == userDept ) {
+            log.warn("select userDept by index, but userDept is null ...");
+            return userDepts;
+        }
+
+        userDepts = userDeptMapper.selectList( userDept );
+
+        return userDepts;
+    }
+
+    @Override
+    public Integer deleteByUserId(long userId) {
+        return userDeptMapper.deleteByUserId(userId);
+    }
 }

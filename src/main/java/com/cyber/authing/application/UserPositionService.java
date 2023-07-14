@@ -12,4 +12,6 @@ public interface UserPositionService extends BaseService<UserPosition> {
     Integer saveBatch(List<UserPosition> list);
 
     List<UserPosition> selectUserPosition(List<String> userIds);
+
+    Integer deleteByUserId(long userId);
 }

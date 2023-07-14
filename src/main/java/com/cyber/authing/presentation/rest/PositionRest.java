@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import com.cyber.application.controller.AuthingTokenController;
 import com.cyber.authing.domain.request.UpdatePositionRequest;
+import com.cyber.authing.domain.response.CountStatus;
 import com.cyber.domain.constant.HttpResultCode;
 import org.springframework.web.bind.annotation.*;
 import com.cyber.domain.entity.DataResponse;
@@ -43,6 +44,14 @@ public class PositionRest extends AuthingTokenController{
         Position  position = request.toEvent(request.getTenantCode());
 		List<Position> positionPage = positionService.selectList(position);
 		response.setData(positionPage);
+		return response;
+	}
+
+	@GetMapping("/position/status/count")
+	public Response selectEnterpriseStatusCount() {
+		DataResponse<List<CountStatus>> response = new DataResponse<>();
+		List<CountStatus> countStatus = positionService.countStatus();
+		response.setData(countStatus);
 		return response;
 	}
 

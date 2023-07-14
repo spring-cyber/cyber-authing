@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.hutool.core.util.IdUtil;
+import com.cyber.authing.domain.response.CountStatus;
 import com.cyber.domain.entity.PagingData;
 import com.cyber.authing.domain.repository.ProductMapper;
 import com.cyber.authing.domain.entity.Product;
@@ -105,5 +106,10 @@ public class ProductServiceImpl implements ProductService {
         products = productMapper.selectByIndex( product );
 
         return products;
+    }
+
+    @Override
+    public List<CountStatus> countStatus() {
+        return productMapper.countStatus();
     }
 }

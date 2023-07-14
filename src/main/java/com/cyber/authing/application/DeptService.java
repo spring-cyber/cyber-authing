@@ -4,6 +4,7 @@ import cn.hutool.core.lang.tree.Tree;
 import com.cyber.application.service.BaseService;
 
 import com.cyber.authing.domain.entity.Dept;
+import com.cyber.authing.domain.response.CountStatus;
 
 import java.util.List;
 
@@ -22,4 +23,9 @@ public interface DeptService extends BaseService<Dept> {
      * @return
      */
     List<Tree<String>> selectEnterpriseTree(Dept dept);
+
+    List<Dept> selectList(Dept dept);
+
+    List<CountStatus> countStatus();
+
 }

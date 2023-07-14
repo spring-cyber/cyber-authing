@@ -12,5 +12,7 @@ public interface UserPositionMapper extends BaseMapper<UserPosition> {
 
     Integer saveBatch(List<UserPosition> list);
 
+    Integer deleteByUserId(Long userId);
+
     List<UserPosition> selectUserPosition(List<String> userIds);
 }

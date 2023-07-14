@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.hutool.core.util.IdUtil;
+import com.cyber.authing.domain.response.CountStatus;
 import com.cyber.domain.entity.PagingData;
 import com.cyber.authing.domain.repository.PositionMapper;
 import com.cyber.authing.domain.entity.Position;
@@ -116,5 +117,10 @@ public class PositionServiceImpl implements PositionService {
 
         positions = positionMapper.selectList( position );
         return positions;
+    }
+
+    @Override
+    public List<CountStatus> countStatus() {
+        return positionMapper.countStatus();
     }
 }

@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import cn.hutool.core.lang.tree.Tree;
 import com.cyber.application.controller.AuthingTokenController;
 import com.cyber.authing.domain.request.UpdateDeptRequest;
+import com.cyber.authing.domain.response.CountStatus;
 import com.cyber.domain.constant.HttpResultCode;
 import org.springframework.web.bind.annotation.*;
 import com.cyber.domain.entity.DataResponse;
@@ -53,6 +54,14 @@ public class DeptRest extends AuthingTokenController{
         Dept  dept = request.toEvent(request.getTenantCode());
 		List<Tree<String>> enterpriseTree = deptService.selectEnterpriseTree(dept);
 		response.setData(enterpriseTree);
+		return response;
+	}
+
+	@GetMapping("/dept/status/count")
+	public Response selectEnterpriseStatusCount() {
+		DataResponse<List<CountStatus>> response = new DataResponse<>();
+		List<CountStatus> countStatus = deptService.countStatus();
+		response.setData(countStatus);
 		return response;
 	}
 

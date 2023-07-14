@@ -5,8 +5,10 @@ import java.util.List;
 import javax.validation.Valid;
 
 
+import cn.hutool.core.lang.tree.Tree;
 import com.cyber.application.controller.AuthingTokenController;
 import com.cyber.authing.domain.request.UpdateEnterpriseRequest;
+import com.cyber.authing.domain.response.CountStatus;
 import com.cyber.domain.constant.HttpResultCode;
 import org.springframework.web.bind.annotation.*;
 import com.cyber.domain.entity.DataResponse;
@@ -43,6 +45,23 @@ public class EnterpriseRest extends AuthingTokenController{
         Enterprise  enterprise = request.toEvent(request.getTenantCode());
 		List<Enterprise> enterprisePage = enterpriseService.selectList(enterprise);
 		response.setData(enterprisePage);
+		return response;
+	}
+
+	@GetMapping("/enterprise/user/tree")
+	public Response selectEnterpriseUserTree(@Valid EnterpriseRequest request) {
+		DataResponse<List<Tree<String>>> response = new DataResponse<>();
+        Enterprise  enterprise = request.toEvent(request.getTenantCode());
+		List<Tree<String>> enterpriseUserTree = enterpriseService.selectEnterpriseUserTree(enterprise);
+		response.setData(enterpriseUserTree);
+		return response;
+	}
+
+	@GetMapping("/enterprise/status/count")
+	public Response selectEnterpriseStatusCount() {
+		DataResponse<List<CountStatus>> response = new DataResponse<>();
+		List<CountStatus> countStatus = enterpriseService.countStatus();
+		response.setData(countStatus);
 		return response;
 	}
 

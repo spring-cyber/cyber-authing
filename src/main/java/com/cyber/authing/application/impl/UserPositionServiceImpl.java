@@ -119,4 +119,9 @@ public class UserPositionServiceImpl implements UserPositionService {
 
         return userPositionMapper.selectUserPosition(userIds);
     }
+
+    @Override
+    public Integer deleteByUserId(long userId) {
+        return userPositionMapper.deleteByUserId(userId);
+    }
 }

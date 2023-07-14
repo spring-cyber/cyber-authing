@@ -106,4 +106,14 @@ public class AccountServiceImpl implements AccountService {
 
         return accounts;
     }
+
+    @Override
+    public Integer deleteByUserId(long userId) {
+        return accountMapper.deleteByUserId(userId);
+    }
+
+    @Override
+    public List<Account> selectUserSystemAccount(List<String> userIds) {
+        return accountMapper.selectUserSystemAccount(userIds);
+    }
 }

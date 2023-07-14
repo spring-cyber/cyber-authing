@@ -35,6 +35,10 @@ public class CreateUserRequest extends OperateEntity {
 	private String phone;
 	/**头像地址*/
 	private String avatar;
+	/**登录账号*/
+	private String account;
+	/**密码，系统登录必选，第三方登录可空*/
+	private String password;
 
 	public User toEvent(String userCode,String tenantCode) {
 		User user = new User();

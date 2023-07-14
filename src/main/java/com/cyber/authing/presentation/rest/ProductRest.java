@@ -1,11 +1,13 @@
 package com.cyber.authing.presentation.rest;
 
 import java.util.Date;
+import java.util.List;
 import javax.validation.Valid;
 
 
 import com.cyber.application.controller.AuthingTokenController;
 import com.cyber.authing.domain.request.UpdateProductRequest;
+import com.cyber.authing.domain.response.CountStatus;
 import com.cyber.domain.constant.HttpResultCode;
 import org.springframework.web.bind.annotation.*;
 import com.cyber.domain.entity.DataResponse;
@@ -33,6 +35,14 @@ public class ProductRest extends AuthingTokenController{
         Product  product = request.toEvent(request.getTenantCode());
 		PagingData<Product> productPage = productService.selectPage(product);
 		response.setData(productPage);
+		return response;
+	}
+
+	@GetMapping("/product/status/count")
+	public Response selectEnterpriseStatusCount() {
+		DataResponse<List<CountStatus>> response = new DataResponse<>();
+		List<CountStatus> countStatus = productService.countStatus();
+		response.setData(countStatus);
 		return response;
 	}
 

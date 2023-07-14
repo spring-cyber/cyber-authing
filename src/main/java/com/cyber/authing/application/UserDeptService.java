@@ -12,4 +12,8 @@ public interface UserDeptService extends BaseService<UserDept> {
     List<UserDept> selectUserDept(List<String> userIds);
 
     Integer saveBatch(List<UserDept> userDepts);
+
+    List<UserDept> selectList(UserDept userDept);
+
+    Integer deleteByUserId(long userId);
 }

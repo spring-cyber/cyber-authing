@@ -11,5 +11,9 @@ public interface UserDeptMapper extends BaseMapper<UserDept> {
 
     List<UserDept> selectUserDept(List<String> userIds);
 
-    Integer saveBatch(List<UserDept> userDepts);
+    Integer saveBatch(List<UserDept> list);
+
+    List<UserDept> selectList(UserDept userDept);
+
+    Integer deleteByUserId(long userId);
 }

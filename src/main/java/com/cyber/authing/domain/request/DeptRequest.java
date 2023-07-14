@@ -12,9 +12,29 @@ import com.cyber.authing.domain.entity.Dept;
 @Setter
 @EqualsAndHashCode(callSuper = true)
 public class DeptRequest extends PagingRequest {
-	
-		/**父部门ID*/	private Long parentId;	/**企业ID*/	private Long enterpriseId;	/**部门名称*/	private String name;	/**部门编码*/	private String code;	/**负责人*/	private String leader;	/**联系电话*/	private String phone;	/**联系邮箱*/	private String email;	/**显示顺序*/	private Integer orderNum;	/**部门描述*/	private String description;
-	
+
+
+	/**父部门ID*/
+	private Long parentId;
+	/**企业ID*/
+	private Long enterpriseId;
+	/**部门名称*/
+	private String name;
+	/**部门编码*/
+	private String code;
+	/**负责人*/
+	private String leader;
+	/**联系电话*/
+	private String phone;
+	/**联系邮箱*/
+	private String email;
+	/**显示顺序*/
+	private Integer orderNum;
+	/**部门描述*/
+	private String description;
+	/**排除id**/
+	private Long excludeId;
+
 	public Dept toEvent(String tenantCode) {
 		Dept dept = new Dept();
 		BeanUtils.copyProperties(this, dept);
