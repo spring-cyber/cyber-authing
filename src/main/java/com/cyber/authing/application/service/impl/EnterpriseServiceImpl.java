@@ -172,6 +172,8 @@ public class EnterpriseServiceImpl implements EnterpriseService {
 
         List<UserDept> userDeptList = userDeptService.selectList(new UserDept());
 
+        HashSet<String> extUserId = new HashSet<>();
+
         //组织树 用户（含有部门）
         collect.addAll(userDeptList.stream()
                 .map(userDept -> {
@@ -184,23 +186,24 @@ public class EnterpriseServiceImpl implements EnterpriseService {
                     treeNode.setExtra(new HashMap<String, Object>() {{
                         put("type", "user");
                     }});
-
-                    userMap.remove(userDept.getId());
+                    extUserId.add(String.valueOf(userDept.getUserId()));
                     return treeNode;
                 }).collect(Collectors.toList()));
 
         //组织树 用户（直属企业）
         if (!userMap.isEmpty()) {
             userMap.forEach((userId, user) -> {
-                TreeNode<String> treeNode = new TreeNode<>();
-                String parenId = String.valueOf(user.getEnterpriseId());
-                treeNode.setId(user.getId());
-                treeNode.setParentId(parenId);
-                treeNode.setName(user.getName());
-                treeNode.setExtra(new HashMap<String, Object>() {{
-                    put("type", "user");
-                }});
-                collect.add(treeNode);
+                if (!extUserId.contains(userId)){
+                    TreeNode<String> treeNode = new TreeNode<>();
+                    String parenId = String.valueOf(user.getEnterpriseId());
+                    treeNode.setId(user.getId());
+                    treeNode.setParentId(parenId);
+                    treeNode.setName(user.getName());
+                    treeNode.setExtra(new HashMap<String, Object>() {{
+                        put("type", "user");
+                    }});
+                    collect.add(treeNode);
+                }
             });
         }
 

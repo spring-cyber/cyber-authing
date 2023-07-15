@@ -1,12 +1,13 @@
 package com.cyber.authing.domain.request;
 
-import org.springframework.beans.BeanUtils;
+import com.cyber.authing.domain.entity.User;
 import com.cyber.domain.entity.PagingRequest;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.BeanUtils;
 
-import com.cyber.authing.domain.entity.User;
+import java.util.List;
 
 @Getter
 @Setter
@@ -16,8 +17,8 @@ public class UserRequest extends PagingRequest {
 
 	/**企业ID*/
 	private Long enterpriseId;
-	/**部门ID*/
-	private Long deptId;
+	/**岗位ID*/
+	private Long positionId;
 	/**用户名称*/
 	private String name;
 	/**用户性别（0男 1女 2未知）*/
@@ -30,6 +31,8 @@ public class UserRequest extends PagingRequest {
 	private String phone;
 	/**头像地址*/
 	private String avatar;
+	/**部门IDs*/
+	private List<Long> deptIds;
 
 	public User toEvent(String tenantCode) {
 		User user = new User();
