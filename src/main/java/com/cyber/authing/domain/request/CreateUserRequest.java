@@ -1,15 +1,14 @@
 package com.cyber.authing.domain.request;
 
-import java.util.Date;
-import java.util.List;
-
-import org.springframework.beans.BeanUtils;
+import com.cyber.authing.domain.entity.User;
 import com.cyber.domain.entity.OperateEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.BeanUtils;
 
-import com.cyber.authing.domain.entity.User;
+import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -18,11 +17,11 @@ public class CreateUserRequest extends OperateEntity {
 
 
 	/**企业ID*/
-	private Long enterpriseId;
+	private String enterpriseId;
 	/**部门IDs*/
-	private List<Long> deptIds;
+	private List<String> deptIds;
 	/**岗位IDs*/
-	private List<Long> positionIds;
+	private List<String> positionIds;
 	/**用户名称*/
 	private String name;
 	/**用户性别（0男 1女 2未知）*/

@@ -1,12 +1,11 @@
 package com.cyber.authing.domain.request;
 
-import org.springframework.beans.BeanUtils;
+import com.cyber.authing.domain.entity.Enterprise;
 import com.cyber.domain.entity.PagingRequest;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-
-import com.cyber.authing.domain.entity.Enterprise;
+import org.springframework.beans.BeanUtils;
 
 @Getter
 @Setter
@@ -32,12 +31,6 @@ public class EnterpriseRequest extends PagingRequest {
 	public Enterprise toEvent(String tenantCode) {
 		Enterprise enterprise = new Enterprise();
 		BeanUtils.copyProperties(this, enterprise);
-		if (this.code!=null){
-			enterprise.setCode("%"+this.code+"%");
-		}
-		if (this.name!=null){
-			enterprise.setName("%"+this.name+"%");
-		}
         enterprise.setTenantCode(tenantCode);
 		return enterprise;
 	}

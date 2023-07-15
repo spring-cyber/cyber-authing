@@ -10,7 +10,7 @@ public class Position extends PagingEntity {
 
 
 	/**企业ID*/
-	private Long enterpriseId;
+	private String enterpriseId;
 	/**企业名称*/
 	private String enterpriseName;
 	/**岗位名称*/

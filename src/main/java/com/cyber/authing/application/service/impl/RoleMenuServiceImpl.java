@@ -1,19 +1,17 @@
 package com.cyber.authing.application.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import cn.hutool.core.util.IdUtil;
-import com.cyber.domain.entity.PagingData;
-import com.cyber.authing.domain.repository.RoleMenuMapper;
-import com.cyber.authing.domain.entity.RoleMenu;
 import com.cyber.authing.application.service.RoleMenuService;
-
+import com.cyber.authing.domain.entity.RoleMenu;
+import com.cyber.authing.domain.repository.RoleMenuMapper;
+import com.cyber.domain.entity.PagingData;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Slf4j
@@ -33,7 +31,7 @@ public class RoleMenuServiceImpl implements RoleMenuService {
             return 0;
         }
 
-        roleMenu.setId(String.valueOf(IdUtil.getSnowflakeNextId()));
+        roleMenu.setId(IdUtil.simpleUUID());
         return roleMenuMapper.save( roleMenu );
     }
 
@@ -105,5 +103,20 @@ public class RoleMenuServiceImpl implements RoleMenuService {
         roleMenus = roleMenuMapper.selectByIndex( roleMenu );
 
         return roleMenus;
+    }
+
+    @Override
+    public Integer deleteByRoleId(long roleId) {
+        return roleMenuMapper.deleteByRoleId(roleId);
+    }
+
+    @Override
+    public Integer saveBatch(List<RoleMenu> roleMenus) {
+        return roleMenuMapper.saveBatch(roleMenus);
+    }
+
+    @Override
+    public List<RoleMenu> selectList(RoleMenu roleMenu) {
+        return roleMenuMapper.selectList(roleMenu);
     }
 }

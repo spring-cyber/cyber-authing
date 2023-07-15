@@ -1,18 +1,17 @@
 package com.cyber.authing.application.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.cyber.domain.entity.PagingData;
-import com.cyber.authing.domain.repository.UserPositionMapper;
-import com.cyber.authing.domain.entity.UserPosition;
+import cn.hutool.core.util.IdUtil;
 import com.cyber.authing.application.service.UserPositionService;
-
+import com.cyber.authing.domain.entity.UserPosition;
+import com.cyber.authing.domain.repository.UserPositionMapper;
+import com.cyber.domain.entity.PagingData;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Slf4j
@@ -32,6 +31,7 @@ public class UserPositionServiceImpl implements UserPositionService {
             return 0;
         }
 
+        userPosition.setId(IdUtil.simpleUUID());
         return userPositionMapper.save( userPosition );
     }
 

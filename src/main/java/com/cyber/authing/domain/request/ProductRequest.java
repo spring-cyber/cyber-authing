@@ -1,12 +1,11 @@
 package com.cyber.authing.domain.request;
 
-import org.springframework.beans.BeanUtils;
+import com.cyber.authing.domain.entity.Product;
 import com.cyber.domain.entity.PagingRequest;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-
-import com.cyber.authing.domain.entity.Product;
+import org.springframework.beans.BeanUtils;
 
 @Getter
 @Setter
@@ -38,12 +37,6 @@ public class ProductRequest extends PagingRequest {
 	public Product toEvent(String tenantCode) {
 		Product product = new Product();
 		BeanUtils.copyProperties(this, product);
-		if (this.code!=null){
-			product.setCode("%"+this.code+"%");
-		}
-		if (this.name!=null){
-			product.setName("%"+this.name+"%");
-		}
         product.setTenantCode(tenantCode);
 		return product;
 	}

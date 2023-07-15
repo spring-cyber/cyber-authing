@@ -10,9 +10,9 @@ public class UserDept extends PagingEntity {
 
 
 	/**用户ID*/
-	private Long userId;
+	private String userId;
 	/**部门ID*/
-	private Long deptId;
+	private String deptId;
 	/**部门名称**/
 	private String name;
 }

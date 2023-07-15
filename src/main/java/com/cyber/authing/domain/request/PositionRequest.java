@@ -1,12 +1,11 @@
 package com.cyber.authing.domain.request;
 
-import org.springframework.beans.BeanUtils;
+import com.cyber.authing.domain.entity.Position;
 import com.cyber.domain.entity.PagingRequest;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-
-import com.cyber.authing.domain.entity.Position;
+import org.springframework.beans.BeanUtils;
 
 @Getter
 @Setter
@@ -15,7 +14,7 @@ public class PositionRequest extends PagingRequest {
 
 
 	/**企业ID*/
-	private Long enterpriseId;
+	private String enterpriseId;
 	/**岗位名称*/
 	private String name;
 	/**岗位编码*/
@@ -28,9 +27,6 @@ public class PositionRequest extends PagingRequest {
 	public Position toEvent(String tenantCode) {
 		Position position = new Position();
 		BeanUtils.copyProperties(this, position);
-		if (this.name!=null){
-			position.setName("%"+this.name+"%");
-		}
         position.setTenantCode(tenantCode);
 		return position;
 	}

@@ -1,26 +1,27 @@
 package com.cyber.authing.application.service.impl;
 
-import java.util.*;
-import java.util.stream.Collectors;
-
 import cn.hutool.core.util.IdUtil;
 import com.cyber.authing.application.service.AccountService;
 import com.cyber.authing.application.service.UserDeptService;
 import com.cyber.authing.application.service.UserPositionService;
+import com.cyber.authing.application.service.UserService;
 import com.cyber.authing.domain.entity.Account;
+import com.cyber.authing.domain.entity.User;
 import com.cyber.authing.domain.entity.UserDept;
 import com.cyber.authing.domain.entity.UserPosition;
+import com.cyber.authing.domain.repository.UserMapper;
 import com.cyber.authing.domain.response.CountStatus;
 import com.cyber.domain.entity.PagingData;
-import com.cyber.authing.domain.repository.UserMapper;
-import com.cyber.authing.domain.entity.User;
-import com.cyber.authing.application.service.UserService;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @Slf4j
@@ -46,13 +47,13 @@ public class UserServiceImpl implements UserService {
             return 0;
         }
 
-        user.setId(String.valueOf(IdUtil.getSnowflakeNextId()));
+        user.setId(IdUtil.simpleUUID());
 
         saveDeptPositions(user);
         Account account = new Account();
         account.setAccount(user.getAccount());
         account.setPassword(user.getPassword());
-        account.setUserId(Long.valueOf(user.getId()));
+        account.setUserId(user.getId());
         account.setType(0);
         accountService.save(account);
         return userMapper.save(user);
@@ -70,8 +71,8 @@ public class UserServiceImpl implements UserService {
             //构建用户部门关系
             userDepts = user.getDeptIds().stream().map(deptId -> {
                 UserDept userDept = new UserDept();
-                userDept.setId(String.valueOf(IdUtil.getSnowflakeNextId()));
-                userDept.setUserId(Long.valueOf(user.getId()));
+                userDept.setId(IdUtil.simpleUUID());
+                userDept.setUserId(user.getId());
                 userDept.setDeptId(deptId);
                 return userDept;
             }).collect(Collectors.toList());
@@ -82,8 +83,8 @@ public class UserServiceImpl implements UserService {
             //构建用户岗位关系
             userPositions = user.getPositionIds().stream().map(positionId -> {
                 UserPosition userDept = new UserPosition();
-                userDept.setId(String.valueOf(IdUtil.getSnowflakeNextId()));
-                userDept.setUserId(Long.valueOf(user.getId()));
+                userDept.setId(IdUtil.simpleUUID());
+                userDept.setUserId(user.getId());
                 userDept.setPositionId(positionId);
                 return userDept;
             }).collect(Collectors.toList());
@@ -139,7 +140,7 @@ public class UserServiceImpl implements UserService {
         }
         user = userMapper.selectOne(user);
         Account account = new Account();
-        account.setUserId(Long.valueOf(user.getId()));
+        account.setUserId(user.getId());
         account.setType(0);
         account = accountService.selectOne(account);
 
@@ -148,6 +149,9 @@ public class UserServiceImpl implements UserService {
 
         List<UserPosition> positionInfo = userPositionService.selectUserPosition(Collections.singletonList(user.getId()));
         List<UserDept> userDeptInfo = userDeptService.selectUserDept(Collections.singletonList(user.getId()));
+
+        user.setUserDeptInfo(userDeptInfo);
+        user.setPositionInfo(positionInfo);
 
         user.setDeptIds(userDeptInfo!=null?userDeptInfo.stream().map(UserDept::getDeptId).collect(Collectors.toList()) : null);
         user.setPositionIds(positionInfo!=null?positionInfo.stream().map(UserPosition::getPositionId).collect(Collectors.toList()) : null);

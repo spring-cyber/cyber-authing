@@ -1,19 +1,17 @@
 package com.cyber.authing.application.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import cn.hutool.core.util.IdUtil;
-import com.cyber.domain.entity.PagingData;
-import com.cyber.authing.domain.repository.UserExtensionMapper;
-import com.cyber.authing.domain.entity.UserExtension;
 import com.cyber.authing.application.service.UserExtensionService;
-
+import com.cyber.authing.domain.entity.UserExtension;
+import com.cyber.authing.domain.repository.UserExtensionMapper;
+import com.cyber.domain.entity.PagingData;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Slf4j
@@ -33,7 +31,7 @@ public class UserExtensionServiceImpl implements UserExtensionService {
             return 0;
         }
 
-        userExtension.setId(String.valueOf(IdUtil.getSnowflakeNextId()));
+        userExtension.setId(IdUtil.simpleUUID());
         return userExtensionMapper.save( userExtension );
     }
 

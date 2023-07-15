@@ -8,5 +8,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class UserExtension extends PagingEntity {
 
-		/**用户ID*/	private Long userId;
+
+	/**用户ID*/
+	private String userId;
 }

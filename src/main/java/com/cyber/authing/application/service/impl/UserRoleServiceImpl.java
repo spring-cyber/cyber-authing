@@ -1,19 +1,17 @@
 package com.cyber.authing.application.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import cn.hutool.core.util.IdUtil;
-import com.cyber.domain.entity.PagingData;
-import com.cyber.authing.domain.repository.UserRoleMapper;
-import com.cyber.authing.domain.entity.UserRole;
 import com.cyber.authing.application.service.UserRoleService;
-
+import com.cyber.authing.domain.entity.UserRole;
+import com.cyber.authing.domain.repository.UserRoleMapper;
+import com.cyber.domain.entity.PagingData;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Slf4j
@@ -32,7 +30,7 @@ public class UserRoleServiceImpl implements UserRoleService {
             log.warn("save userRole, but userRole is null...");
             return 0;
         }
-        userRole.setId(String.valueOf(IdUtil.getSnowflakeNextId()));
+        userRole.setId(IdUtil.simpleUUID());
 
         return userRoleMapper.save( userRole );
     }

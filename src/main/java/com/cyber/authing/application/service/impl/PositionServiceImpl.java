@@ -1,20 +1,18 @@
 package com.cyber.authing.application.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import cn.hutool.core.util.IdUtil;
+import com.cyber.authing.application.service.PositionService;
+import com.cyber.authing.domain.entity.Position;
+import com.cyber.authing.domain.repository.PositionMapper;
 import com.cyber.authing.domain.response.CountStatus;
 import com.cyber.domain.entity.PagingData;
-import com.cyber.authing.domain.repository.PositionMapper;
-import com.cyber.authing.domain.entity.Position;
-import com.cyber.authing.application.service.PositionService;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Slf4j
@@ -34,7 +32,7 @@ public class PositionServiceImpl implements PositionService {
             return 0;
         }
 
-        position.setId(String.valueOf(IdUtil.getSnowflakeNextId()));
+        position.setId(IdUtil.simpleUUID());
         return positionMapper.save( position );
     }
 

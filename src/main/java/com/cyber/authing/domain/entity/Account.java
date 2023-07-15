@@ -8,9 +8,9 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class Account extends PagingEntity {
 
-	
+
 	/**用户ID*/
-	private Long userId;
+	private String userId;
 	/**登录账号*/
 	private String account;
 	/**密码，系统登录必选，第三方登录可空*/

@@ -1,25 +1,23 @@
 package com.cyber.authing.presentation.rest;
 
-import java.util.Date;
-import javax.validation.Valid;
-
-
+import cn.hutool.core.lang.tree.Tree;
 import com.cyber.application.controller.AuthingTokenController;
+import com.cyber.authing.application.service.MenuService;
+import com.cyber.authing.domain.entity.Menu;
+import com.cyber.authing.domain.request.CreateMenuRequest;
+import com.cyber.authing.domain.request.MenuRequest;
 import com.cyber.authing.domain.request.UpdateMenuRequest;
 import com.cyber.domain.constant.HttpResultCode;
-import org.springframework.web.bind.annotation.*;
 import com.cyber.domain.entity.DataResponse;
 import com.cyber.domain.entity.IdRequest;
 import com.cyber.domain.entity.PagingData;
 import com.cyber.domain.entity.Response;
-
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 
-import com.cyber.authing.domain.entity.Menu;
-import com.cyber.authing.domain.request.MenuRequest;
-import com.cyber.authing.domain.request.CreateMenuRequest;
-
-import com.cyber.authing.application.service.MenuService;
+import javax.validation.Valid;
+import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -47,6 +45,15 @@ public class MenuRest extends AuthingTokenController{
 		menu = menuService.selectOne(menu);
 
 		response.setData(menu);
+		return response;
+	}
+
+	@GetMapping("/menu/tree")
+	public Response selectProduct(@Valid MenuRequest request) {
+		DataResponse<List<Tree<String>>> response = new DataResponse<>();
+		Menu menu = request.toEvent(request.getTenantCode());
+		List<Tree<String>> productTree = menuService.selectTree(menu);
+		response.setData(productTree);
 		return response;
 	}
 

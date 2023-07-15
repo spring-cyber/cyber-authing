@@ -1,25 +1,25 @@
 package com.cyber.authing.application.service.impl;
 
-import java.util.*;
-import java.util.stream.Collectors;
-
 import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.core.lang.tree.TreeNode;
 import cn.hutool.core.lang.tree.TreeUtil;
 import cn.hutool.core.util.IdUtil;
+import com.cyber.authing.application.service.DeptService;
 import com.cyber.authing.application.service.EnterpriseService;
+import com.cyber.authing.domain.entity.Dept;
 import com.cyber.authing.domain.entity.Enterprise;
+import com.cyber.authing.domain.repository.DeptMapper;
 import com.cyber.authing.domain.response.CountStatus;
 import com.cyber.domain.entity.PagingData;
-import com.cyber.authing.domain.repository.DeptMapper;
-import com.cyber.authing.domain.entity.Dept;
-import com.cyber.authing.application.service.DeptService;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Slf4j
@@ -40,7 +40,7 @@ public class DeptServiceImpl implements DeptService {
             log.warn("save dept, but dept is null...");
             return 0;
         }
-        dept.setId(String.valueOf(IdUtil.getSnowflakeNextId()));
+        dept.setId(IdUtil.simpleUUID());
         return deptMapper.save(dept);
     }
 

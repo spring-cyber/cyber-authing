@@ -1,18 +1,17 @@
 package com.cyber.authing.application.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.cyber.domain.entity.PagingData;
-import com.cyber.authing.domain.repository.UserDeptMapper;
-import com.cyber.authing.domain.entity.UserDept;
+import cn.hutool.core.util.IdUtil;
 import com.cyber.authing.application.service.UserDeptService;
-
+import com.cyber.authing.domain.entity.UserDept;
+import com.cyber.authing.domain.repository.UserDeptMapper;
+import com.cyber.domain.entity.PagingData;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Slf4j
@@ -32,6 +31,7 @@ public class UserDeptServiceImpl implements UserDeptService {
             return 0;
         }
 
+        userDept.setId(IdUtil.simpleUUID());
         return userDeptMapper.save( userDept );
     }
 

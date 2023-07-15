@@ -1,12 +1,11 @@
 package com.cyber.authing.domain.request;
 
-import org.springframework.beans.BeanUtils;
+import com.cyber.authing.domain.entity.Dept;
 import com.cyber.domain.entity.PagingRequest;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-
-import com.cyber.authing.domain.entity.Dept;
+import org.springframework.beans.BeanUtils;
 
 @Getter
 @Setter
@@ -15,9 +14,9 @@ public class DeptRequest extends PagingRequest {
 
 
 	/**父部门ID*/
-	private Long parentId;
+	private String parentId;
 	/**企业ID*/
-	private Long enterpriseId;
+	private String enterpriseId;
 	/**部门名称*/
 	private String name;
 	/**部门编码*/
@@ -33,7 +32,7 @@ public class DeptRequest extends PagingRequest {
 	/**部门描述*/
 	private String description;
 	/**排除id**/
-	private Long excludeId;
+	private String excludeId;
 
 	public Dept toEvent(String tenantCode) {
 		Dept dept = new Dept();

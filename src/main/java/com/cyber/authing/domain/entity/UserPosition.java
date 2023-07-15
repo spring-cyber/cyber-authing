@@ -10,9 +10,9 @@ public class UserPosition extends PagingEntity {
 
 
 	/**用户ID*/
-	private Long userId;
+	private String userId;
 	/**岗位ID*/
-	private Long positionId;
+	private String positionId;
 	/**岗位名称*/
 	private String name;
 }

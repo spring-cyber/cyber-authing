@@ -1,19 +1,17 @@
 package com.cyber.authing.application.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import cn.hutool.core.util.IdUtil;
-import com.cyber.domain.entity.PagingData;
-import com.cyber.authing.domain.repository.ActivityLogMapper;
-import com.cyber.authing.domain.entity.ActivityLog;
 import com.cyber.authing.application.service.ActivityLogService;
-
+import com.cyber.authing.domain.entity.ActivityLog;
+import com.cyber.authing.domain.repository.ActivityLogMapper;
+import com.cyber.domain.entity.PagingData;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Slf4j
@@ -33,7 +31,7 @@ public class ActivityLogServiceImpl implements ActivityLogService {
             return 0;
         }
 
-        activityLog.setId(String.valueOf(IdUtil.getSnowflakeNextId()));
+        activityLog.setId(IdUtil.simpleUUID());
         return activityLogMapper.save( activityLog );
     }
 

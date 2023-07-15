@@ -1,19 +1,22 @@
 package com.cyber.authing.application.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import cn.hutool.core.lang.tree.Tree;
+import cn.hutool.core.lang.tree.TreeNode;
+import cn.hutool.core.lang.tree.TreeUtil;
 import cn.hutool.core.util.IdUtil;
-import com.cyber.domain.entity.PagingData;
-import com.cyber.authing.domain.repository.MenuMapper;
-import com.cyber.authing.domain.entity.Menu;
 import com.cyber.authing.application.service.MenuService;
-
+import com.cyber.authing.domain.entity.Menu;
+import com.cyber.authing.domain.repository.MenuMapper;
+import com.cyber.domain.entity.PagingData;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Slf4j
@@ -33,7 +36,7 @@ public class MenuServiceImpl implements MenuService {
             return 0;
         }
 
-        menu.setId(String.valueOf(IdUtil.getSnowflakeNextId()));
+        menu.setId(IdUtil.simpleUUID());
         return menuMapper.save( menu );
     }
 
@@ -105,5 +108,23 @@ public class MenuServiceImpl implements MenuService {
         menus = menuMapper.selectByIndex( menu );
 
         return menus;
+    }
+
+    @Override
+    public List<Tree<String>> selectTree(Menu menu) {
+        // 查询应用下菜单
+        List<Menu> productList = menuMapper.selectList(menu);
+
+        List<TreeNode<String>> collect = productList.stream()
+                .sorted(Comparator.comparingInt(Menu::getOrderNum)).map(menuMap -> {
+                    TreeNode<String> treeNode = new TreeNode<>();
+                    treeNode.setId(menuMap.getId());
+                    treeNode.setParentId(menuMap.getParentId());
+                    treeNode.setName(menuMap.getName());
+                    treeNode.setWeight(menuMap.getOrderNum());
+                    return treeNode;
+                }).collect(Collectors.toList());
+
+        return TreeUtil.build(collect, "0");
     }
 }

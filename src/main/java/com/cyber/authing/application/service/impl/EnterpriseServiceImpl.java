@@ -48,7 +48,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
             return 0;
         }
 
-        enterprise.setId(String.valueOf(IdUtil.getSnowflakeNextId()));
+        enterprise.setId(IdUtil.simpleUUID());
         return enterpriseMapper.save(enterprise);
     }
 
@@ -179,7 +179,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
                 .map(userDept -> {
                     TreeNode<String> treeNode = new TreeNode<>();
                     String parenId = String.valueOf(userDept.getDeptId());
-                    treeNode.setId(userDept.getId());
+                    treeNode.setId(String.valueOf(userDept.getUserId()));
                     treeNode.setParentId(parenId);
                     User user = userMap.get(String.valueOf(userDept.getUserId()));
                     treeNode.setName(user.getName());
@@ -196,7 +196,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
                 if (!extUserId.contains(userId)){
                     TreeNode<String> treeNode = new TreeNode<>();
                     String parenId = String.valueOf(user.getEnterpriseId());
-                    treeNode.setId(user.getId());
+                    treeNode.setId(userId);
                     treeNode.setParentId(parenId);
                     treeNode.setName(user.getName());
                     treeNode.setExtra(new HashMap<String, Object>() {{

@@ -1,25 +1,22 @@
 package com.cyber.authing.presentation.rest;
 
-import java.util.Date;
-import javax.validation.Valid;
-
-
 import com.cyber.application.controller.AuthingTokenController;
+import com.cyber.authing.application.service.RoleService;
+import com.cyber.authing.domain.entity.Role;
+import com.cyber.authing.domain.request.CreateRoleRequest;
+import com.cyber.authing.domain.request.RoleRequest;
 import com.cyber.authing.domain.request.UpdateRoleRequest;
 import com.cyber.domain.constant.HttpResultCode;
-import org.springframework.web.bind.annotation.*;
 import com.cyber.domain.entity.DataResponse;
 import com.cyber.domain.entity.IdRequest;
 import com.cyber.domain.entity.PagingData;
 import com.cyber.domain.entity.Response;
-
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 
-import com.cyber.authing.domain.entity.Role;
-import com.cyber.authing.domain.request.RoleRequest;
-import com.cyber.authing.domain.request.CreateRoleRequest;
-
-import com.cyber.authing.application.service.RoleService;
+import javax.validation.Valid;
+import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -32,6 +29,15 @@ public class RoleRest extends AuthingTokenController{
 		DataResponse<PagingData<Role>> response = new DataResponse<>();
         Role  role = request.toEvent(request.getTenantCode());
 		PagingData<Role> rolePage = roleService.selectPage(role);
+		response.setData(rolePage);
+		return response;
+	}
+
+	@GetMapping("/role/select")
+	public Response selectList(@Valid RoleRequest request) {
+		DataResponse<List<Role>> response = new DataResponse<>();
+        Role  role = request.toEvent(request.getTenantCode());
+		List<Role> rolePage = roleService.selectList(role);
 		response.setData(rolePage);
 		return response;
 	}

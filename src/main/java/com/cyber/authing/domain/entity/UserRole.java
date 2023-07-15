@@ -8,5 +8,13 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class UserRole extends PagingEntity {
 
-		/**产品ID*/	private Long productId;	/**用户ID*/	private Long userId;	/**角色ID*/	private String roleId;	/**授权描述*/	private String description;
+
+	/**产品ID*/
+	private String productId;
+	/**用户ID*/
+	private String userId;
+	/**角色ID*/
+	private String roleId;
+	/**授权描述*/
+	private String description;
 }

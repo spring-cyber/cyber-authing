@@ -1,19 +1,17 @@
 package com.cyber.authing.application.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import cn.hutool.core.util.IdUtil;
-import com.cyber.domain.entity.PagingData;
-import com.cyber.authing.domain.repository.AccountMapper;
-import com.cyber.authing.domain.entity.Account;
 import com.cyber.authing.application.service.AccountService;
-
+import com.cyber.authing.domain.entity.Account;
+import com.cyber.authing.domain.repository.AccountMapper;
+import com.cyber.domain.entity.PagingData;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Slf4j
@@ -33,7 +31,7 @@ public class AccountServiceImpl implements AccountService {
             return 0;
         }
 
-        account.setId(String.valueOf(IdUtil.getSnowflakeNextId()));
+        account.setId(IdUtil.simpleUUID());
         return accountMapper.save( account );
     }
 

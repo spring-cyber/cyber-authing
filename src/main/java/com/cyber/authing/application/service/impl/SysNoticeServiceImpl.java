@@ -1,19 +1,17 @@
 package com.cyber.authing.application.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import cn.hutool.core.util.IdUtil;
-import com.cyber.domain.entity.PagingData;
-import com.cyber.authing.domain.repository.SysNoticeMapper;
-import com.cyber.authing.domain.entity.SysNotice;
 import com.cyber.authing.application.service.SysNoticeService;
-
+import com.cyber.authing.domain.entity.SysNotice;
+import com.cyber.authing.domain.repository.SysNoticeMapper;
+import com.cyber.domain.entity.PagingData;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Slf4j
@@ -33,7 +31,7 @@ public class SysNoticeServiceImpl implements SysNoticeService {
             return 0;
         }
 
-        sysNotice.setId(String.valueOf(IdUtil.getSnowflakeNextId()));
+        sysNotice.setId(IdUtil.simpleUUID());
         return sysNoticeMapper.save( sysNotice );
     }
 

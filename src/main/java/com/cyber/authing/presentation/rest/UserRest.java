@@ -1,27 +1,23 @@
 package com.cyber.authing.presentation.rest;
 
-import java.util.Date;
-import java.util.List;
-import javax.validation.Valid;
-
-
 import com.cyber.application.controller.AuthingTokenController;
+import com.cyber.authing.application.service.UserService;
+import com.cyber.authing.domain.entity.User;
+import com.cyber.authing.domain.request.CreateUserRequest;
 import com.cyber.authing.domain.request.UpdateUserRequest;
 import com.cyber.authing.domain.request.UserRequest;
 import com.cyber.authing.domain.response.CountStatus;
 import com.cyber.domain.constant.HttpResultCode;
-import org.springframework.web.bind.annotation.*;
 import com.cyber.domain.entity.DataResponse;
 import com.cyber.domain.entity.IdRequest;
 import com.cyber.domain.entity.PagingData;
 import com.cyber.domain.entity.Response;
-
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 
-import com.cyber.authing.domain.entity.User;
-import com.cyber.authing.domain.request.CreateUserRequest;
-
-import com.cyber.authing.application.service.UserService;
+import javax.validation.Valid;
+import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -34,6 +30,15 @@ public class UserRest extends AuthingTokenController{
 		DataResponse<PagingData<User>> response = new DataResponse<>();
         User  user = request.toEvent(request.getTenantCode());
 		PagingData<User> userPage = userService.selectPage(user);
+		response.setData(userPage);
+		return response;
+	}
+
+	@GetMapping("/user/select")
+	public Response selectUser(@Valid UserRequest request) {
+		DataResponse<List<User>> response = new DataResponse<>();
+        User  user = request.toEvent(request.getTenantCode());
+		List<User> userPage = userService.selectList(user);
 		response.setData(userPage);
 		return response;
 	}

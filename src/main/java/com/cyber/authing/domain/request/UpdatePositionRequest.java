@@ -1,13 +1,13 @@
 package com.cyber.authing.domain.request;
 
-import java.util.Date;
-import org.springframework.beans.BeanUtils;
+import com.cyber.authing.domain.entity.Position;
 import com.cyber.domain.entity.OperateEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.BeanUtils;
 
-import com.cyber.authing.domain.entity.Position;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -16,7 +16,7 @@ public class UpdatePositionRequest extends OperateEntity {
 
 
 	/**企业ID*/
-	private Long enterpriseId;
+	private String enterpriseId;
 	/**岗位名称*/
 	private String name;
 	/**岗位编码*/
@@ -31,7 +31,7 @@ public class UpdatePositionRequest extends OperateEntity {
 		BeanUtils.copyProperties(this, position);
 
 		if (this.enterpriseId==null){
-			position.setEnterpriseId(0L);
+			position.setEnterpriseId("0");
 		}
         position.setTenantCode(tenantCode);
         position.setUpdator(userCode);

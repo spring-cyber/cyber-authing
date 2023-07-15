@@ -8,5 +8,9 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class RoleMenu extends PagingEntity {
 
-		/**角色ID*/	private Long roleId;	/**菜单ID*/	private Long menuId;
+
+	/**角色ID*/
+	private String roleId;
+	/**菜单ID*/
+	private String menuId;
 }

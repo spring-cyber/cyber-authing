@@ -1,80 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cyber.authing.domain.repository.MenuMapper">
-	<sql id="baseColumns">
-		 id, product_id, parent_id, name, code, order_num, api_perms, status, deleted, creator, create_time, updator, update_time, remark, version
-	</sql>
-
-	<sql id="updateColumns">
-		<set>
-			  <if test="id != null">	id   = #{id},  </if>  <if test="productId != null">	product_id   = #{productId},  </if>  <if test="parentId != null">	parent_id   = #{parentId},  </if>  <if test="name != null">	name   = #{name},  </if>  <if test="code != null">	code   = #{code},  </if>  <if test="orderNum != null">	order_num   = #{orderNum},  </if>  <if test="apiPerms != null">	api_perms   = #{apiPerms},  </if>  <if test="status != null">	status   = #{status},  </if>  <if test="deleted != null">	deleted   = #{deleted},  </if>  <if test="creator != null">	creator   = #{creator},  </if>  <if test="createTime != null">	create_time   = #{createTime},  </if>  <if test="updator != null">	updator   = #{updator},  </if>  <if test="updateTime != null">	update_time   = #{updateTime},  </if>  <if test="remark != null">	remark   = #{remark},  </if>  <if test="version != null">	version   = #{version},  </if>
-		</set>
-	</sql>
-
-    <sql id="whereClause">
-        <trim prefix="WHERE" prefixOverrides="AND">
-			  <if test="id != null">	    AND ${columnPrefix}id = #{id}  </if>  <if test="productId != null">	    AND ${columnPrefix}product_id = #{productId}  </if>  <if test="parentId != null">	    AND ${columnPrefix}parent_id = #{parentId}  </if>  <if test="name != null">	    AND ${columnPrefix}name = #{name}  </if>  <if test="code != null">	    AND ${columnPrefix}code = #{code}  </if>  <if test="orderNum != null">	    AND ${columnPrefix}order_num = #{orderNum}  </if>  <if test="apiPerms != null">	    AND ${columnPrefix}api_perms = #{apiPerms}  </if>  <if test="status != null">	    AND ${columnPrefix}status = #{status}  </if>  <if test="deleted != null">	    AND ${columnPrefix}deleted = #{deleted}  </if>  <if test="creator != null">	    AND ${columnPrefix}creator = #{creator}  </if>  <if test="createTime != null">	    AND ${columnPrefix}create_time = #{createTime}  </if>  <if test="updator != null">	    AND ${columnPrefix}updator = #{updator}  </if>  <if test="updateTime != null">	    AND ${columnPrefix}update_time = #{updateTime}  </if>  <if test="remark != null">	    AND ${columnPrefix}remark = #{remark}  </if>
-        </trim>
-    </sql>
-
-	<insert id="save" parameterType="com.cyber.authing.domain.entity.Menu">
-		insert into menu
-		(<include refid="saveColumn"/>)
-		values
-		(<include refid="saveValue"/>)
-	</insert>
-
-	<sql id="saveColumn">
-		<trim suffixOverrides=",">
-			<if test="id!= null">id,</if><if test="productId!= null">product_id,</if><if test="parentId!= null">parent_id,</if><if test="name!= null">name,</if><if test="code!= null">code,</if><if test="orderNum!= null">order_num,</if><if test="apiPerms!= null">api_perms,</if><if test="status!= null">status,</if><if test="deleted!= null">deleted,</if><if test="creator!= null">creator,</if><if test="createTime!= null">create_time,</if><if test="updator!= null">updator,</if><if test="updateTime!= null">update_time,</if><if test="remark!= null">remark,</if><if test="version!= null">version,</if>
-		</trim>
-	</sql>
-
-	<sql id="saveValue">
-		<trim suffixOverrides=",">
-			<if test="id!= null">#{id},</if><if test="productId!= null">#{productId},</if><if test="parentId!= null">#{parentId},</if><if test="name!= null">#{name},</if><if test="code!= null">#{code},</if><if test="orderNum!= null">#{orderNum},</if><if test="apiPerms!= null">#{apiPerms},</if><if test="status!= null">#{status},</if><if test="deleted!= null">#{deleted},</if><if test="creator!= null">#{creator},</if><if test="createTime!= null">#{createTime},</if><if test="updator!= null">#{updator},</if><if test="updateTime!= null">#{updateTime},</if><if test="remark!= null">#{remark},</if><if test="version!= null">#{version},</if>
-		</trim>
-	</sql>
-
-	<delete id="deleteById" parameterType="com.cyber.authing.domain.entity.Menu">
-		DELETE FROM menu WHERE id = #{id}
-	</delete>
-
-	<update id="updateById" parameterType="com.cyber.authing.domain.entity.Menu">
-		update menu
-		<include refid="updateColumns" />
-		, version = version + 1
-		where id = #{id}
-		and version = #{version}
-	</update>
-
-	<select id="selectOne" resultType="com.cyber.authing.domain.entity.Menu" parameterType="com.cyber.authing.domain.entity.Menu">
-		SELECT
-		<include refid="baseColumns" />
-		FROM menu
-        <include refid="whereClause">
-            <property name="columnPrefix" value=""/>
-        </include>
-	</select>
-
-	<select id="selectByIndexCount" parameterType="com.cyber.authing.domain.entity.Menu" resultType="int">
-		SELECT count(1)
-		FROM menu
-        <include refid="whereClause">
-            <property name="columnPrefix" value=""/>
-        </include>
-	</select>
-
-	<select id="selectByIndex" parameterType="com.cyber.authing.domain.entity.Menu" resultType="com.cyber.authing.domain.entity.Menu">
-		SELECT
-		<include refid="baseColumns" />
-		FROM menu
-        <include refid="whereClause">
-            <property name="columnPrefix" value=""/>
-        </include>
-		<if test="sortBy != null and sortBy != '' and sortType != null and sortType != '' ">
-			ORDER BY ${sortBy} ${sortType}
-		</if>
-		LIMIT #{offset} , #{limit}
-	</select>
-</mapper>
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><mapper namespace="com.cyber.authing.domain.repository.MenuMapper">	<sql id="baseColumns">		 id, product_id, parent_id, name, code, order_num, path, component, query, is_frame, is_cache, menu_type, visible, api_perms, status, icon, deleted, creator, create_time, updator, update_time, remark, version	</sql>	<sql id="updateColumns">		<set>			  <if test="id != null">	id   = #{id},  </if>  <if test="productId != null">	product_id   = #{productId},  </if>  <if test="parentId != null">	parent_id   = #{parentId},  </if>  <if test="name != null">	name   = #{name},  </if>  <if test="code != null">	code   = #{code},  </if>  <if test="orderNum != null">	order_num   = #{orderNum},  </if>  <if test="path != null">	path   = #{path},  </if>  <if test="component != null">	component   = #{component},  </if>  <if test="query != null">	query   = #{query},  </if>  <if test="isFrame != null">	is_frame   = #{isFrame},  </if>  <if test="isCache != null">	is_cache   = #{isCache},  </if>  <if test="menuType != null">	menu_type   = #{menuType},  </if>  <if test="visible != null">	visible   = #{visible},  </if>  <if test="apiPerms != null">	api_perms   = #{apiPerms},  </if>  <if test="status != null">	status   = #{status},  </if>  <if test="icon != null">	icon   = #{icon},  </if>  <if test="deleted != null">	deleted   = #{deleted},  </if>  <if test="creator != null">	creator   = #{creator},  </if>  <if test="createTime != null">	create_time   = #{createTime},  </if>  <if test="updator != null">	updator   = #{updator},  </if>  <if test="updateTime != null">	update_time   = #{updateTime},  </if>  <if test="remark != null">	remark   = #{remark},  </if>  <if test="version != null">	version   = #{version},  </if>		</set>	</sql>    <sql id="whereClause">        <trim prefix="WHERE" prefixOverrides="AND">			  <if test="id != null">	    AND ${columnPrefix}id = #{id}  </if>  <if test="productId != null">	    AND ${columnPrefix}product_id = #{productId}  </if>  <if test="parentId != null">	    AND ${columnPrefix}parent_id = #{parentId}  </if>  <if test="name != null">	    AND ${columnPrefix}name = #{name}  </if>  <if test="code != null">	    AND ${columnPrefix}code = #{code}  </if>  <if test="orderNum != null">	    AND ${columnPrefix}order_num = #{orderNum}  </if>  <if test="path != null">	    AND ${columnPrefix}path = #{path}  </if>  <if test="component != null">	    AND ${columnPrefix}component = #{component}  </if>  <if test="query != null">	    AND ${columnPrefix}query = #{query}  </if>  <if test="isFrame != null">	    AND ${columnPrefix}is_frame = #{isFrame}  </if>  <if test="isCache != null">	    AND ${columnPrefix}is_cache = #{isCache}  </if>  <if test="menuType != null">	    AND ${columnPrefix}menu_type = #{menuType}  </if>  <if test="visible != null">	    AND ${columnPrefix}visible = #{visible}  </if>  <if test="apiPerms != null">	    AND ${columnPrefix}api_perms = #{apiPerms}  </if>  <if test="status != null">	    AND ${columnPrefix}status = #{status}  </if>  <if test="icon != null">	    AND ${columnPrefix}icon = #{icon}  </if>  <if test="deleted != null">	    AND ${columnPrefix}deleted = #{deleted}  </if>  <if test="creator != null">	    AND ${columnPrefix}creator = #{creator}  </if>  <if test="createTime != null">	    AND ${columnPrefix}create_time = #{createTime}  </if>  <if test="updator != null">	    AND ${columnPrefix}updator = #{updator}  </if>  <if test="updateTime != null">	    AND ${columnPrefix}update_time = #{updateTime}  </if>  <if test="remark != null">	    AND ${columnPrefix}remark = #{remark}  </if>        </trim>    </sql>	<insert id="save" parameterType="com.cyber.authing.domain.entity.Menu">		insert into menu		(<include refid="saveColumn"/>)		values		(<include refid="saveValue"/>)	</insert>	<sql id="saveColumn">		<trim suffixOverrides=",">			<if test="id!= null">id,</if><if test="productId!= null">product_id,</if><if test="parentId!= null">parent_id,</if><if test="name!= null">name,</if><if test="code!= null">code,</if><if test="orderNum!= null">order_num,</if><if test="path!= null">path,</if><if test="component!= null">component,</if><if test="query!= null">query,</if><if test="isFrame!= null">is_frame,</if><if test="isCache!= null">is_cache,</if><if test="menuType!= null">menu_type,</if><if test="visible!= null">visible,</if><if test="apiPerms!= null">api_perms,</if><if test="status!= null">status,</if><if test="icon!= null">icon,</if><if test="deleted!= null">deleted,</if><if test="creator!= null">creator,</if><if test="createTime!= null">create_time,</if><if test="updator!= null">updator,</if><if test="updateTime!= null">update_time,</if><if test="remark!= null">remark,</if><if test="version!= null">version,</if>		</trim>	</sql>	<sql id="saveValue">		<trim suffixOverrides=",">			<if test="id!= null">#{id},</if><if test="productId!= null">#{productId},</if><if test="parentId!= null">#{parentId},</if><if test="name!= null">#{name},</if><if test="code!= null">#{code},</if><if test="orderNum!= null">#{orderNum},</if><if test="path!= null">#{path},</if><if test="component!= null">#{component},</if><if test="query!= null">#{query},</if><if test="isFrame!= null">#{isFrame},</if><if test="isCache!= null">#{isCache},</if><if test="menuType!= null">#{menuType},</if><if test="visible!= null">#{visible},</if><if test="apiPerms!= null">#{apiPerms},</if><if test="status!= null">#{status},</if><if test="icon!= null">#{icon},</if><if test="deleted!= null">#{deleted},</if><if test="creator!= null">#{creator},</if><if test="createTime!= null">#{createTime},</if><if test="updator!= null">#{updator},</if><if test="updateTime!= null">#{updateTime},</if><if test="remark!= null">#{remark},</if><if test="version!= null">#{version},</if>		</trim>	</sql>	<delete id="deleteById" parameterType="com.cyber.authing.domain.entity.Menu">		DELETE FROM menu WHERE id = #{id}	</delete>	<update id="updateById" parameterType="com.cyber.authing.domain.entity.Menu">		update menu		<include refid="updateColumns" />		, version = version + 1		where id = #{id}		and version = #{version}	</update>	<select id="selectOne" resultType="com.cyber.authing.domain.entity.Menu" parameterType="com.cyber.authing.domain.entity.Menu">		SELECT		<include refid="baseColumns" />		FROM menu        <include refid="whereClause">            <property name="columnPrefix" value=""/>        </include>	</select>	<select id="selectByIndexCount" parameterType="com.cyber.authing.domain.entity.Menu" resultType="int">		SELECT count(1)		FROM menu        <include refid="whereClause">            <property name="columnPrefix" value=""/>        </include>	</select>	<select id="selectByIndex" parameterType="com.cyber.authing.domain.entity.Menu" resultType="com.cyber.authing.domain.entity.Menu">		SELECT		<include refid="baseColumns" />		FROM menu        <include refid="whereClause">            <property name="columnPrefix" value=""/>        </include>		<if test="sortBy != null and sortBy != '' and sortType != null and sortType != '' ">			ORDER BY ${sortBy} ${sortType}		</if>		LIMIT #{offset} , #{limit}	</select>    <select id="selectList" resultType="com.cyber.authing.domain.entity.Menu">        SELECT        <include refid="baseColumns" />        FROM menu        <include refid="whereClause">            <property name="columnPrefix" value=""/>        </include>    </select></mapper>

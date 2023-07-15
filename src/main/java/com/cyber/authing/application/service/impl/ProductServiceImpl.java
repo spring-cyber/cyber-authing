@@ -1,22 +1,24 @@
 package com.cyber.authing.application.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import cn.hutool.core.lang.tree.Tree;
+import cn.hutool.core.lang.tree.TreeNode;
 import cn.hutool.core.lang.tree.TreeUtil;
 import cn.hutool.core.util.IdUtil;
+import com.cyber.authing.application.service.ProductService;
+import com.cyber.authing.domain.entity.Product;
+import com.cyber.authing.domain.repository.ProductMapper;
 import com.cyber.authing.domain.response.CountStatus;
 import com.cyber.domain.entity.PagingData;
-import com.cyber.authing.domain.repository.ProductMapper;
-import com.cyber.authing.domain.entity.Product;
-import com.cyber.authing.application.service.ProductService;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Slf4j
@@ -36,7 +38,7 @@ public class ProductServiceImpl implements ProductService {
             return 0;
         }
 
-        product.setId(String.valueOf(IdUtil.getSnowflakeNextId()));
+        product.setId(IdUtil.simpleUUID());
         return productMapper.save( product );
     }
 
@@ -117,19 +119,22 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Tree<String>> selectTree(Product product) {
-        // 查询全部部门
-//        List<Dept> deptAllList = deptMapper.selectList(dept);
-//
-//        List<TreeNode<String>> collect = deptAllList.stream()
-//                .sorted(Comparator.comparingInt(Dept::getOrderNum)).map(deptMap -> {
-//                    TreeNode<String> treeNode = new TreeNode<>();
-//                    treeNode.setId(deptMap.getId());
-//                    treeNode.setParentId(String.valueOf(deptMap.getParentId()));
-//                    treeNode.setName(deptMap.getName());
-//                    treeNode.setWeight(deptMap.getOrderNum());
-//                    return treeNode;
-//                }).collect(Collectors.toList());
+        // 查询类型下应用
+        List<Product> productList = productMapper.selectList(product);
 
-        return TreeUtil.build(new ArrayList<>(), "0");
+        List<TreeNode<String>> collect = productList.stream()
+                .sorted(Comparator.comparingInt(Product::getOrderNum)).map(productMap -> {
+                    TreeNode<String> treeNode = new TreeNode<>();
+                    treeNode.setId(productMap.getId());
+                    treeNode.setParentId(String.valueOf(product.getType()));
+                    treeNode.setName(productMap.getName());
+                    treeNode.setWeight(productMap.getOrderNum());
+                    treeNode.setExtra(new HashMap<>(){{
+                        put("icon",productMap.getIcon());
+                    }});
+                    return treeNode;
+                }).collect(Collectors.toList());
+
+        return TreeUtil.build(collect, String.valueOf(product.getType()));
     }
 }

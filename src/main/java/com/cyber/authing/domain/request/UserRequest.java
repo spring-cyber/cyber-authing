@@ -16,9 +16,9 @@ public class UserRequest extends PagingRequest {
 
 
 	/**企业ID*/
-	private Long enterpriseId;
+	private String enterpriseId;
 	/**岗位ID*/
-	private Long positionId;
+	private String positionId;
 	/**用户名称*/
 	private String name;
 	/**用户性别（0男 1女 2未知）*/
@@ -32,17 +32,11 @@ public class UserRequest extends PagingRequest {
 	/**头像地址*/
 	private String avatar;
 	/**部门IDs*/
-	private List<Long> deptIds;
+	private List<String> deptIds;
 
 	public User toEvent(String tenantCode) {
 		User user = new User();
 		BeanUtils.copyProperties(this, user);
-		if (null!=this.name){
-			user.setName("%"+this.name+"%");
-		}
-		if (null!=this.phone){
-			user.setPhone("%"+this.phone+"%");
-		}
         user.setTenantCode(tenantCode);
 		return user;
 	}
