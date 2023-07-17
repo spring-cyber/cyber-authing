@@ -144,9 +144,10 @@ public class UserServiceImpl implements UserService {
         account.setType(0);
         account = accountService.selectOne(account);
 
-        user.setAccount(account.getAccount());
-        user.setPassword(account.getPassword());
-
+        if (null!=account) {
+            user.setAccount(account.getAccount());
+            user.setPassword(account.getPassword());
+        }
         List<UserPosition> positionInfo = userPositionService.selectUserPosition(Collections.singletonList(user.getId()));
         List<UserDept> userDeptInfo = userDeptService.selectUserDept(Collections.singletonList(user.getId()));
 
